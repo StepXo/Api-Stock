@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-15T14:12:09-0500",
+    date = "2024-08-15T23:32:26-0500",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.8.jar, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
 public class ArticuloMapperImpl implements ArticuloMapper {
 
     @Override
-    public ArticuloDto articuloDtoToArticuloEntity(ArticuloEntity articulo) {
+    public ArticuloDto toArticuloDto(ArticuloEntity articulo) {
         if ( articulo == null ) {
             return null;
         }
@@ -31,7 +31,7 @@ public class ArticuloMapperImpl implements ArticuloMapper {
     }
 
     @Override
-    public ArticuloEntity articuloEntityToArticuloDto(ArticuloDto articulo) {
+    public ArticuloEntity toArticuloEntity(ArticuloDto articulo) {
         if ( articulo == null ) {
             return null;
         }

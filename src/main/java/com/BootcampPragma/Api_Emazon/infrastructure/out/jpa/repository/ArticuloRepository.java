@@ -4,6 +4,7 @@ import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.ArticuloEntit
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
 public interface ArticuloRepository extends JpaRepository <ArticuloEntity, Long> {
 

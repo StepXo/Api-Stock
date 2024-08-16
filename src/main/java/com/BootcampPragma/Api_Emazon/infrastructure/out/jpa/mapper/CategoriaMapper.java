@@ -1,11 +1,13 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.mapper;
-import com.BootcampPragma.Api_Emazon.application.dto.CategoriaDto;
+
+import com.BootcampPragma.Api_Emazon.domain.model.Categoria;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.CategoriaEntity;
 import  org.mapstruct.Mapper;
 
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "Strping")
 public interface CategoriaMapper {
-    CategoriaDto categoriaDtoToCategoriaEntity(CategoriaEntity categoria);
-    CategoriaEntity categoriaEntityToCategoriaDto (CategoriaDto categoria);
+
+    Categoria toCategoria(CategoriaEntity categoria);
+    CategoriaEntity toCategoriaEntity(Categoria categoria);
 }

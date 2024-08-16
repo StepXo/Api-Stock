@@ -7,6 +7,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface MarcaMapper {
-    MarcaDto marcaDtoToMarcaEntity(MarcaEntity marca);
-    MarcaEntity marcaEntityToMarcaDto (MarcaDto marca);
+    MarcaDto toMarcaDto(MarcaEntity marca);
+    MarcaEntity toMarcaEntity(MarcaDto marca);
 }

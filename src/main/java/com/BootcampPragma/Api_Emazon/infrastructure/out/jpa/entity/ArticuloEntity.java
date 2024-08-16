@@ -21,7 +21,7 @@ public class ArticuloEntity {
     private String nombre;
     private String descripcion;
     private long cantidad;
-    private long precio;
+    private double precio;
 
 
 }

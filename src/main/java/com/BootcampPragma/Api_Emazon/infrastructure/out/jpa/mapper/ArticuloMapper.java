@@ -7,6 +7,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface ArticuloMapper {
-    ArticuloDto articuloDtoToArticuloEntity(ArticuloEntity articulo);
-    ArticuloEntity articuloEntityToArticuloDto (ArticuloDto articulo);
+    ArticuloDto toArticuloDto(ArticuloEntity articulo);
+    ArticuloEntity toArticuloEntity(ArticuloDto articulo);
 }
