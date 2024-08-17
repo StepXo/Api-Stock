@@ -8,7 +8,7 @@ public interface CategoriaServicePort {
 
         Categoria guardarCategoria(Categoria categoria);
 
-        List<Categoria> getAllCategorias();
+        List<Categoria> obtenerCategorias();
 
         void updateCategoria(Categoria categoria);
 

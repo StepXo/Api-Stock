@@ -18,13 +18,12 @@ import java.util.stream.Collectors;
 @Transactional
 public class CategoriaService {
 
-    //private final CategoriaRepository categoriaRepository;
     private final CategoriaRequest categoriaRequest;
     private  final CategoriaServicePort categoriaServicePort;
 
     public List<CategoriaDto> obtenerCategorias() {
         return categoriaServicePort
-                .getAllCategorias()
+                .obtenerCategorias()
                 .stream()
                 .map(categoriaRequest::toCategoriaDto)
                 .collect(Collectors.toList()

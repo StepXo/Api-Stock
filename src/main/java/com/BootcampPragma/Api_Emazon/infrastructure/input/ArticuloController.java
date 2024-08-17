@@ -1,7 +1,7 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.input;
 
 import com.BootcampPragma.Api_Emazon.application.dto.ArticuloDto;
-import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.adapter.ArticuloJpaAdapter;
+import com.BootcampPragma.Api_Emazon.application.service.ArticuloService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArticuloController {
 
-    private final ArticuloJpaAdapter articuloService;
+    private final ArticuloService articuloService;
 
 
     @GetMapping
@@ -21,8 +21,8 @@ public class ArticuloController {
     }
 
     @PostMapping
-    private ArticuloDto crearArticulo(@RequestBody ArticuloDto articulo){
-        return articuloService.crearArticulo(articulo);
+    private void crearArticulo(@RequestBody ArticuloDto articulo){
+        articuloService.crearArticulo(articulo);
     }
 
 }

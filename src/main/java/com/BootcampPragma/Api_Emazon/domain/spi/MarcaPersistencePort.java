@@ -7,9 +7,9 @@ import java.util.List;
 public interface MarcaPersistencePort {
     Marca guardarMarca(Marca marca);
 
-    List<Marca> getAllMarcas();
+    List<Marca> obtenerMarcas();
 
     void updateMarca(Marca marca);
 
-    void deleteMarca(Marca marca);
+    void deleteMarca(String marcaId);
 }

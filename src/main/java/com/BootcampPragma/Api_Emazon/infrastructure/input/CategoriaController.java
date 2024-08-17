@@ -1,6 +1,7 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.input;
 
 import com.BootcampPragma.Api_Emazon.application.dto.CategoriaDto;
+import com.BootcampPragma.Api_Emazon.application.service.CategoriaService;
 import com.BootcampPragma.Api_Emazon.domain.model.Categoria;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.adapter.CategoriaJpaAdapter;
 import lombok.RequiredArgsConstructor;
@@ -13,17 +14,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoriaController {
 
-    private final CategoriaJpaAdapter categoriaService;
+    private final CategoriaService categoriaService;
 
 
     @GetMapping
-    private List<Categoria> obtenerCategoria(){
+    private List<CategoriaDto> obtenerCategoria(){
         return categoriaService.obtenerCategorias();
     }
 
     @PostMapping
-    private Categoria crearCategoria(@RequestBody Categoria categoria){
-        return categoriaService.crearCategoria(categoria);
+    private void crearCategoria(@RequestBody CategoriaDto categoria){
+        categoriaService.crearCategoria(categoria);
     }
 
 }

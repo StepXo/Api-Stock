@@ -8,11 +8,11 @@ import com.BootcampPragma.Api_Emazon.domain.spi.CategoriaPersistencePort;
 
 import java.util.List;
 
-public class CategoriaHU1 implements CategoriaServicePort {
+public class CategoriaHU implements CategoriaServicePort {
 
     private final CategoriaPersistencePort categoriaPersistencePort;
 
-    public CategoriaHU1(CategoriaPersistencePort categoriaPersistencePort) {
+    public CategoriaHU(CategoriaPersistencePort categoriaPersistencePort) {
         this.categoriaPersistencePort = categoriaPersistencePort;
     }
 
@@ -28,8 +28,8 @@ public class CategoriaHU1 implements CategoriaServicePort {
     }
 
     @Override
-    public List<Categoria> getAllCategorias() {
-        return categoriaPersistencePort.getAllCategorias();
+    public List<Categoria> obtenerCategorias() {
+        return categoriaPersistencePort.obtenerCategorias();
     }
 
     @Override
@@ -39,6 +39,7 @@ public class CategoriaHU1 implements CategoriaServicePort {
         } else if (categoria.getDescripcion().length() > 90) {
             throw new DescripcionIsTooLongException();
         }
+        categoriaPersistencePort.guardarCategoria(categoria);
     }
 
     @Override

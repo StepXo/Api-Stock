@@ -7,9 +7,9 @@ import java.util.List;
 public interface CategoriaPersistencePort {
     Categoria guardarCategoria(Categoria categoria);
 
-    List<Categoria> getAllCategorias();
-
     void updateCategoria(Categoria categoria);
 
-    void deleteCategoria(Categoria categoria);
+    List<Categoria> obtenerCategorias();
+
+    void deleteCategoria(String categoriaId);
 }

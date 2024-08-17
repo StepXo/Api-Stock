@@ -1,33 +1,37 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.mapper;
 
-import com.BootcampPragma.Api_Emazon.application.dto.CategoriaDto;
+import com.BootcampPragma.Api_Emazon.domain.model.Categoria;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.CategoriaEntity;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-15T23:16:39-0500",
+    date = "2024-08-17T00:16:10-0500",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.8.jar, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 public class CategoriaMapperImpl implements CategoriaMapper {
 
     @Override
-    public CategoriaDto toCategoriaDto(CategoriaEntity categoria) {
+    public Categoria toCategoria(CategoriaEntity categoria) {
         if ( categoria == null ) {
             return null;
         }
 
-        CategoriaDto categoriaDto = new CategoriaDto();
+        long id = 0L;
+        String nombre = null;
+        String descripcion = null;
 
-        categoriaDto.setId( categoria.getId() );
-        categoriaDto.setNombre( categoria.getNombre() );
-        categoriaDto.setDescripcion( categoria.getDescripcion() );
+        id = categoria.getId();
+        nombre = categoria.getNombre();
+        descripcion = categoria.getDescripcion();
 
-        return categoriaDto;
+        Categoria categoria1 = new Categoria( id, nombre, descripcion );
+
+        return categoria1;
     }
 
     @Override
-    public CategoriaEntity toCategoriaEntity(CategoriaDto categoria) {
+    public CategoriaEntity toCategoriaEntity(Categoria categoria) {
         if ( categoria == null ) {
             return null;
         }

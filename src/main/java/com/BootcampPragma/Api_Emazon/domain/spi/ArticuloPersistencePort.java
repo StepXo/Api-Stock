@@ -7,9 +7,9 @@ import java.util.List;
 public interface ArticuloPersistencePort {
     Articulo guardarArticulo(Articulo crticulo);
 
-    List<Articulo> getAllArticulos();
+    List<Articulo> obtenerArticulos();
 
     void updateArticulo(Articulo crticulo);
 
-    void deleteArticulo(Articulo crticulo);
+    void deleteArticulo(String articuloId);
 }

@@ -1,35 +1,39 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.mapper;
 
-import com.BootcampPragma.Api_Emazon.application.dto.MarcaDto;
+import com.BootcampPragma.Api_Emazon.domain.model.Marca;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.MarcaEntity;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-15T23:16:39-0500",
+    date = "2024-08-17T00:16:10-0500",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.8.jar, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
 public class MarcaMapperImpl implements MarcaMapper {
 
     @Override
-    public MarcaDto toMarcaDto(MarcaEntity marca) {
+    public Marca toMarca(MarcaEntity marca) {
         if ( marca == null ) {
             return null;
         }
 
-        MarcaDto marcaDto = new MarcaDto();
+        long id = 0L;
+        String nombre = null;
+        String descripcion = null;
 
-        marcaDto.setId( marca.getId() );
-        marcaDto.setNombre( marca.getNombre() );
-        marcaDto.setDescripcion( marca.getDescripcion() );
+        id = marca.getId();
+        nombre = marca.getNombre();
+        descripcion = marca.getDescripcion();
 
-        return marcaDto;
+        Marca marca1 = new Marca( id, nombre, descripcion );
+
+        return marca1;
     }
 
     @Override
-    public MarcaEntity toMarcaEntity(MarcaDto marca) {
+    public MarcaEntity toMarcaEntity(Marca marca) {
         if ( marca == null ) {
             return null;
         }

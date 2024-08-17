@@ -8,11 +8,11 @@ import com.BootcampPragma.Api_Emazon.domain.spi.MarcaPersistencePort;
 
 import java.util.List;
 
-public class MarcaHU3 implements MarcaServicePort {
+public class MarcaHU implements MarcaServicePort {
 
     private final MarcaPersistencePort marcaPersistencePort;
 
-    public MarcaHU3(MarcaPersistencePort marcaPersistencePort) {
+    public MarcaHU(MarcaPersistencePort marcaPersistencePort) {
         this.marcaPersistencePort = marcaPersistencePort;
     }
 
@@ -29,7 +29,7 @@ public class MarcaHU3 implements MarcaServicePort {
 
     @Override
     public List<Marca> getAllMarcas() {
-        return marcaPersistencePort.getAllMarcas();
+        return marcaPersistencePort.obtenerMarcas();
     }
 
     @Override
@@ -39,6 +39,7 @@ public class MarcaHU3 implements MarcaServicePort {
         } else if (marca.getDescripcion().length() > 120) {
             throw new DescripcionIsTooLongException();
         }
+        marcaPersistencePort.guardarMarca(marca);
     }
 
     @Override

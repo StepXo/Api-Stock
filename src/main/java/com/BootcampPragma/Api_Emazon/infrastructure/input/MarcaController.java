@@ -1,7 +1,7 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.input;
 
 import com.BootcampPragma.Api_Emazon.application.dto.MarcaDto;
-import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.adapter.MarcaJpaAdapter;
+import com.BootcampPragma.Api_Emazon.application.service.MarcaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MarcaController {
 
-    private final MarcaJpaAdapter marcaService;
+    private final MarcaService marcaService;
 
 
     @GetMapping
@@ -21,8 +21,8 @@ public class MarcaController {
     }
 
     @PostMapping
-    private MarcaDto crearMarca(@RequestBody MarcaDto marca){
-        return marcaService.crearMarca(marca);
+    private void crearMarca(@RequestBody MarcaDto marca){
+         marcaService.crearMarca(marca);
     }
 
 }

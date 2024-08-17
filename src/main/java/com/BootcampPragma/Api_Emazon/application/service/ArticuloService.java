@@ -16,13 +16,12 @@ import java.util.stream.Collectors;
 @Transactional
 public class ArticuloService {
 
-    //private final ArticuloRepository articuloRepository;
     private final ArticuloRequest articuloRequest;
     private  final ArticuloServicePort articuloServicePort;
 
     public List<ArticuloDto> obtenerArticulos() {
         return articuloServicePort
-                .getAllArticulos()
+                .obtenerArticulos()
                 .stream()
                 .map(articuloRequest::toArticuloDto)
                 .collect(Collectors.toList()

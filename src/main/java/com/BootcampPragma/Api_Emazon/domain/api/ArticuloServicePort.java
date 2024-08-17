@@ -8,7 +8,7 @@ public interface ArticuloServicePort {
 
         Articulo guardarArticulo(Articulo articulo);
 
-        List<Articulo> getAllArticulos();
+        List<Articulo> obtenerArticulos();
 
         void updateArticulo(Articulo articulo);
 

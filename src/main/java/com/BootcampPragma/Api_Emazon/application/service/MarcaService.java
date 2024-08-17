@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @Transactional
 public class MarcaService {
 
-    //private final MarcaRepository marcaRepository;
     private final MarcaRequest marcaRequest;
     private  final MarcaServicePort marcaServicePort;
 
