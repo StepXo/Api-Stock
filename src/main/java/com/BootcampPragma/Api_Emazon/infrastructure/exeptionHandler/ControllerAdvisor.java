@@ -1,6 +1,6 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.exeptionHandler;
 
-import com.BootcampPragma.Api_Emazon.domain.exeption.DescripcionIsTooLongException;
+import com.BootcampPragma.Api_Emazon.domain.exeption.DescriptionIsTooLongException;
 import com.BootcampPragma.Api_Emazon.domain.exeption.NameIsTooLongException;
 import com.BootcampPragma.Api_Emazon.infrastructure.exeption.*;
 import org.springframework.http.HttpStatus;
@@ -15,20 +15,22 @@ import java.util.Map;
 public class ControllerAdvisor {
     private static final String MESSAGE = "Message";
 
-    @ExceptionHandler(CategoriaAlreadyExistsException.class)
-    public ResponseEntity<Map<String, String>> handleCategoriaAlreadyExistsException(
-            CategoriaAlreadyExistsException categoriaAlreadyExistsException) {
+    //AlreadyExist
+    @ExceptionHandler(CategoryAlreadyExistsException.class)
+    public ResponseEntity<Map<String, String>> handleCategoryAlreadyExistsException(
+            CategoryAlreadyExistsException categoryAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.CATEGORIA_ALREADY_EXISTS.getMessage()));
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.CATEGORY_ALREADY_EXISTS.getMessage()));
     }
 
-    @ExceptionHandler(MarcaAlreadyExistsException.class)
+    @ExceptionHandler(BrandAlreadyExistsException.class)
     public ResponseEntity<Map<String, String>> handleMarcaAlreadyExistsException(
-            MarcaAlreadyExistsException marcaAlreadyExistsException) {
+            BrandAlreadyExistsException brandAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.MARCA_ALREADY_EXIST.getMessage()));
     }
 
+    //NotFound
     @ExceptionHandler(NoDataFoundException.class)
     public ResponseEntity<Map<String, String>> handleNoDataFoundException(
             NoDataFoundException noDataFoundException) {
@@ -36,25 +38,38 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.NO_DATA_FOUND.getMessage()));
     }
 
-    @ExceptionHandler(DescripcionNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleDescripcionNotFoundException(
-            DescripcionNotFoundException categoriaNotFoundException) {
+    @ExceptionHandler(DescriptionNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleDescriptionNotFoundException(
+            DescriptionNotFoundException descriptionNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.DESCRIPCION_NOT_FOUND.getMessage()));
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.DESCRIPTION_NOT_FOUND.getMessage()));
     }
 
-    @ExceptionHandler(CategoriaNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleTypeNotFoundException(
-            CategoriaNotFoundException typeNotFoundException) {
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleCategoryNotFoundException(
+            CategoryNotFoundException categoryNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.CATEGORIA_NOT_FOUND.getMessage()));
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.CATEGORY_NOT_FOUND.getMessage()));
+    }
+    @ExceptionHandler(BrnadNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleMarcaNotFoundException(
+            BrnadNotFoundException brnadNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.MARCA_NOT_FOUND.getMessage()));
+    }
+    @ExceptionHandler(ArticleNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleArticleNotFoundException(
+            ArticleNotFoundException articleNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.ARTICLE_NOT_FOUND.getMessage()));
     }
 
-    @ExceptionHandler(DescripcionIsTooLongException.class)
+    //TooLong
+    @ExceptionHandler(DescriptionIsTooLongException.class)
     public ResponseEntity<Map<String, String>> handleDescriptionIsTooLongExeption(
-            DescripcionIsTooLongException descriptionIsTooLongExeption) {
+            DescriptionIsTooLongException descriptionIsTooLongExeption) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.DESCRIPCION_IS_TOO_LONG.getMessage()));
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.DESCRIPTION_IS_TOO_LONG.getMessage()));
     }
     @ExceptionHandler(NameIsTooLongException.class)
     public ResponseEntity<Map<String, String>> handleNameIsTooLongExeption(

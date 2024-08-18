@@ -1,23 +1,23 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.configuration;
 
-import com.BootcampPragma.Api_Emazon.domain.api.ArticuloServicePort;
-import com.BootcampPragma.Api_Emazon.domain.api.CategoriaServicePort;
-import com.BootcampPragma.Api_Emazon.domain.api.MarcaServicePort;
-import com.BootcampPragma.Api_Emazon.domain.spi.ArticuloPersistencePort;
-import com.BootcampPragma.Api_Emazon.domain.spi.CategoriaPersistencePort;
-import com.BootcampPragma.Api_Emazon.domain.spi.MarcaPersistencePort;
-import com.BootcampPragma.Api_Emazon.domain.usecase.ArticuloHU;
-import com.BootcampPragma.Api_Emazon.domain.usecase.CategoriaHU;
-import com.BootcampPragma.Api_Emazon.domain.usecase.MarcaHU;
-import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.adapter.ArticuloJpaAdapter;
-import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.adapter.CategoriaJpaAdapter;
-import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.adapter.MarcaJpaAdapter;
-import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.mapper.ArticuloMapper;
-import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.mapper.CategoriaMapper;
-import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.mapper.MarcaMapper;
-import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.repository.ArticuloRepository;
-import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.repository.CategoriaRepository;
-import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.repository.MarcaRepository;
+import com.BootcampPragma.Api_Emazon.domain.api.ArticleServicePort;
+import com.BootcampPragma.Api_Emazon.domain.api.CategoryServicePort;
+import com.BootcampPragma.Api_Emazon.domain.api.BrandServicePort;
+import com.BootcampPragma.Api_Emazon.domain.spi.ArticlePersistencePort;
+import com.BootcampPragma.Api_Emazon.domain.spi.CategoryPersistencePort;
+import com.BootcampPragma.Api_Emazon.domain.spi.BrandPersistencePort;
+import com.BootcampPragma.Api_Emazon.domain.usecase.ArticleHU;
+import com.BootcampPragma.Api_Emazon.domain.usecase.CategoryHU;
+import com.BootcampPragma.Api_Emazon.domain.usecase.BrandHU;
+import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.adapter.ArticleJpaAdapter;
+import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.adapter.CategoryJpaAdapter;
+import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.adapter.BrandJpaAdapter;
+import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.mapper.ArticleMapper;
+import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.mapper.BrandMapper;
+import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.mapper.CategoryMapper;
+import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.repository.ArticleRepository;
+import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.repository.CategoryRepository;
+import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.repository.BrandRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,42 +26,42 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class BeanConfiguration {
 
-    private final CategoriaRepository categoriaRepository;
-    private final CategoriaMapper categoriaMapper;
+    private final CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
 
-    private final MarcaRepository marcaRepository;
-    private final MarcaMapper marcaMapper;
+    private final BrandRepository brandRepository;
+    private final BrandMapper brandMapper;
 
-    private final ArticuloRepository articuloRepository;
-    private final ArticuloMapper articuloMapper;
+    private final ArticleRepository articleRepository;
+    private final ArticleMapper articleMapper;
 
     @Bean
-    public CategoriaPersistencePort categoriaPersistencePort(){
-        return new CategoriaJpaAdapter(categoriaRepository,categoriaMapper);
+    public CategoryPersistencePort categoryPersistencePort(){
+        return new CategoryJpaAdapter(categoryRepository, categoryMapper);
     }
 
     @Bean
-    public CategoriaServicePort categoriaServicePort(){
-        return new CategoriaHU(categoriaPersistencePort());
+    public CategoryServicePort categoryServicePort(){
+        return new CategoryHU(categoryPersistencePort());
     }
 
     @Bean
-    public MarcaPersistencePort marcaPersistencePort(){
-        return new MarcaJpaAdapter(marcaRepository,marcaMapper);
+    public BrandPersistencePort brandPersistencePort(){
+        return new BrandJpaAdapter(brandRepository, brandMapper);
     }
 
     @Bean
-    public MarcaServicePort marcaServicePort(){
-        return new MarcaHU(marcaPersistencePort());
+    public BrandServicePort brandServicePort(){
+        return new BrandHU(brandPersistencePort());
     }
 
     @Bean
-    public ArticuloPersistencePort articuloPersistencePort(){
-        return new ArticuloJpaAdapter(articuloRepository,articuloMapper);
+    public ArticlePersistencePort articlePersistencePort(){
+        return new ArticleJpaAdapter(articleRepository, articleMapper);
     }
     @Bean
-    public ArticuloServicePort articuloServicePort(){
-        return new ArticuloHU(articuloPersistencePort());
+    public ArticleServicePort articleServicePort(){
+        return new ArticleHU(articlePersistencePort());
     }
 
 }
