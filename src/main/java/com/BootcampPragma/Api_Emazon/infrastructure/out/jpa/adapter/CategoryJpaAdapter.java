@@ -9,6 +9,8 @@ import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.CategoryEntit
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.mapper.CategoryMapper;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,6 +53,7 @@ public class CategoryJpaAdapter implements CategoryPersistencePort {
 
     @Override
     public void updateCategory(Category category){
+
         if (categoryRepository.findByName(category.getName()).isPresent()){
             throw new CategoryAlreadyExistsException();
         } else if (category.getDescription().isEmpty()){
@@ -62,6 +65,24 @@ public class CategoryJpaAdapter implements CategoryPersistencePort {
 
     @Override
     public void deleteCategory(String categoryId){
-        categoryRepository.deleteByName(categoryId);};
+        categoryRepository.deleteByName(categoryId);}
+
+    @Override
+    public Page<Category> findAllByOrderByNameAsc(Pageable pageable) {
+
+        List<CategoryEntity> categoryEntityList = categoryRepository.findAll();
+        if (categoryEntityList.isEmpty()){throw new NoDataFoundException();}
+
+        return categoryRepository.findAllByOrderByNameAsc(pageable).map(categoryMapper::toCategory);
+    }
+
+    @Override
+    public Page<Category> findAllByOrderByNameDesc(Pageable pageable) {
+
+        List<CategoryEntity> categoryEntityList = categoryRepository.findAll();
+        if (categoryEntityList.isEmpty()){throw new NoDataFoundException();}
+
+        return categoryRepository.findAllByOrderByNameDesc(pageable).map(categoryMapper::toCategory);
+    }
 
 }

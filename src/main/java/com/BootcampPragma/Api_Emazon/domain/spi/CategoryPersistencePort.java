@@ -1,6 +1,8 @@
 package com.BootcampPragma.Api_Emazon.domain.spi;
 
 import com.BootcampPragma.Api_Emazon.domain.model.Category;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -12,4 +14,7 @@ public interface CategoryPersistencePort {
     List<Category> getAllCategories();
 
     void deleteCategory(String categoriaId);
+
+    Page<Category> findAllByOrderByNameAsc(Pageable pageable);
+    Page<Category> findAllByOrderByNameDesc(Pageable pageable);
 }
