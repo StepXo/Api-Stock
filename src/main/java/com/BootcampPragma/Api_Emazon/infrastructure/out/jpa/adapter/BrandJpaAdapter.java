@@ -1,12 +1,10 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.adapter;
 
 import com.BootcampPragma.Api_Emazon.domain.model.Brand;
-import com.BootcampPragma.Api_Emazon.domain.model.Brand;
 import com.BootcampPragma.Api_Emazon.domain.spi.BrandPersistencePort;
 import com.BootcampPragma.Api_Emazon.infrastructure.exeption.BrandAlreadyExistsException;
 import com.BootcampPragma.Api_Emazon.infrastructure.exeption.DescriptionNotFoundException;
 import com.BootcampPragma.Api_Emazon.infrastructure.exeption.NoDataFoundException;
-import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.BrandEntity;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.BrandEntity;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.mapper.BrandMapper;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.repository.BrandRepository;
@@ -55,6 +53,7 @@ public class BrandJpaAdapter implements BrandPersistencePort {
 
     @Override
     public void updateBrand(Brand brand){
+
         if (brandRepository.findByName(brand.getName()).isPresent()){
             throw new BrandAlreadyExistsException();
         } else if (brand.getDescription().isEmpty()){

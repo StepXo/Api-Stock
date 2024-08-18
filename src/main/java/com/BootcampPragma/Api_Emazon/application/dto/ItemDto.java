@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ArticleDto {
+public class ItemDto {
     private long id;
     private String name;
     private String description;
