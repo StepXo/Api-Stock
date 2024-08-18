@@ -5,6 +5,8 @@ import com.BootcampPragma.Api_Emazon.domain.model.Category;
 import com.BootcampPragma.Api_Emazon.domain.exeption.DescriptionIsTooLongException;
 import com.BootcampPragma.Api_Emazon.domain.exeption.NameIsTooLongException;
 import com.BootcampPragma.Api_Emazon.domain.spi.CategoryPersistencePort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -46,5 +48,16 @@ public class CategoryHU implements CategoryServicePort {
     public void deleteCategory(String categoryId) {
 
     }
+
+    @Override
+    public Page<Category> findAllByOrderByNameAsc(Pageable pageable) {
+        return categoryPersistencePort.findAllByOrderByNameAsc(pageable);
+    }
+
+    @Override
+    public Page<Category> findAllByOrderByNameDesc(Pageable pageable) {
+        return categoryPersistencePort.findAllByOrderByNameDesc(pageable);
+    }
+
 
 }
