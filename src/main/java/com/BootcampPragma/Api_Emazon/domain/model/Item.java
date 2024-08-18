@@ -1,13 +1,13 @@
 package com.BootcampPragma.Api_Emazon.domain.model;
 
-public class Article {
+public class Item {
     private long id;
     private String name;
     private String description;
     private Long quantity;
     private double price;
 
-    public Article(long id, String name, String description, Long quantity, double price) {
+    public Item(long id, String name, String description, Long quantity, double price) {
         this.id = id;
         this.name = name;
         this.description = description;

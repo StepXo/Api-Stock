@@ -29,6 +29,12 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.MARCA_ALREADY_EXIST.getMessage()));
     }
+    @ExceptionHandler(ItemAlreadyExistsException.class)
+    public ResponseEntity<Map<String, String>> handleItemAlreadyExistsException(
+            BrandAlreadyExistsException itemAlreadyExistsException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.ITEM_ALREADY_EXIST.getMessage()));
+    }
 
     //NotFound
     @ExceptionHandler(NoDataFoundException.class)
@@ -57,11 +63,11 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.MARCA_NOT_FOUND.getMessage()));
     }
-    @ExceptionHandler(ArticleNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleArticleNotFoundException(
-            ArticleNotFoundException articleNotFoundException) {
+    @ExceptionHandler(ItemNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleItemNotFoundException(
+            ItemNotFoundException itemNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.ARTICLE_NOT_FOUND.getMessage()));
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.ITEM_NOT_FOUND.getMessage()));
     }
 
     //TooLong

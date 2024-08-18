@@ -1,7 +1,6 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.repository;
 
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.BrandEntity;
-import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.CategoryEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
