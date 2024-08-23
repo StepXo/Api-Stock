@@ -8,13 +8,11 @@ import com.BootcampPragma.Api_Emazon.domain.model.Category;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -23,32 +21,34 @@ public class CategoryService {
     private final CategoryRequest categoryRequest;
     private  final CategoryServicePort categoryServicePort;
 
-    public List<CategoryDto> getAllCategories() {
-        return categoryServicePort
-                .getAllCategories()
-                .stream()
-                .map(categoryRequest::toCategoryDto)
-                .collect(Collectors.toList()
-                );
-    }
-
     public void saveCategory(CategoryDto categoryDto){
         Category category = categoryRequest.toCategory(categoryDto);
         categoryServicePort.saveCategory(category);
     }
 
-    public Page<CategoryDto> getCategoriesOrderedByNameAsc(int page, int size) {
-        PageRequest pageable = PageRequest.of(page, size);
+    public Page<CategoryDto> getCategoriesOrderedByName(String order, int page, int size) {
+        Sort sort = "asc".equalsIgnoreCase(order)
+                ? Sort.by("name").descending()
+                : Sort.by("name").ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
 
-        return categoryServicePort.findAllByOrderByNameAsc(pageable)
-                .map(categoryRequest::toCategoryDto);
+        List<CategoryDto> categoryDto = categoryServicePort
+                .getAllCategories()
+                .stream()
+                .map(categoryRequest::toCategoryDto)
+                .toList();
+
+        Comparator<CategoryDto> comparator = "asc".equalsIgnoreCase(order)
+                ? Comparator.comparing(CategoryDto::getName)
+                : Comparator.comparing(CategoryDto::getName).reversed();
+
+        List<CategoryDto> sortedCategoryDto = categoryDto.stream()
+                .sorted(comparator)
+                .toList();
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), sortedCategoryDto.size());
+
+        return new PageImpl<>(sortedCategoryDto.subList(start, end), pageable, sortedCategoryDto.size());
     }
-
-    public Page<CategoryDto> getCategoriesOrderedByNameDesc(int page, int size) {
-        PageRequest pageable = PageRequest.of(page, size);
-
-        return categoryServicePort.findAllByOrderByNameDesc(pageable)
-                .map(categoryRequest::toCategoryDto);
-    }
-
 }

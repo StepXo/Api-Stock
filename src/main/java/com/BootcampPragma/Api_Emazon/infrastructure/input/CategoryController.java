@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/category")
@@ -20,24 +19,14 @@ public class CategoryController {
         categoryService.saveCategory(category);
     }
 
-    @GetMapping
-    private List<CategoryDto> getAllCategories(){
-        return categoryService.getAllCategories();
-    }
+    //@GetMapping
 
-    @GetMapping("/asc")
-    public Page<CategoryDto> getCategoriesAsc(
+    @GetMapping("/{order}")
+    public Page<CategoryDto> getCategories(
+            @PathVariable String order,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        return categoryService.getCategoriesOrderedByNameAsc(page, size);
+        return categoryService.getCategoriesOrderedByName(order, page, size);
     }
-
-    @GetMapping("/desc")
-    public Page<CategoryDto> getCategoriesDesc(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return categoryService.getCategoriesOrderedByNameDesc(page, size);
-    }
-
-
 }
+

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.BootcampPragma.Api_Emazon.application.service.CategoryServiceTest" tests="3" skipped="0" failures="2" errors="0" timestamp="2024-08-23T02:36:11" hostname="DESKTOP-GTNTTOM" time="0.165">
+  <properties/>
+  <testcase name="testGetCategoriesOrderedByName_Positive()" classname="com.BootcampPragma.Api_Emazon.application.service.CategoryServiceTest" time="0.068">
+    <failure message="org.mockito.exceptions.misusing.UnfinishedStubbingException: &#10;Unfinished stubbing detected here:&#10;-&gt; at com.BootcampPragma.Api_Emazon.application.service.CategoryServiceTest.testGetCategoriesOrderedByName_Positive(CategoryServiceTest.java:58)&#10;&#10;E.g. thenReturn() may be missing.&#10;Examples of correct stubbing:&#10;    when(mock.isOk()).thenReturn(true);&#10;    when(mock.isOk()).thenThrow(exception);&#10;    doThrow(exception).when(mock).someVoidMethod();&#10;Hints:&#10; 1. missing thenReturn()&#10; 2. you are trying to stub a final method, which is not supported&#10; 3. you are stubbing the behaviour of another mock inside before 'thenReturn' instruction is completed&#10;" type="org.mockito.exceptions.misusing.UnfinishedStubbingException">org.mockito.exceptions.misusing.UnfinishedStubbingException: 
+Unfinished stubbing detected here:
+-&gt; at com.BootcampPragma.Api_Emazon.application.service.CategoryServiceTest.testGetCategoriesOrderedByName_Positive(CategoryServiceTest.java:58)
+
+E.g. thenReturn() may be missing.
+Examples of correct stubbing:
+    when(mock.isOk()).thenReturn(true);
+    when(mock.isOk()).thenThrow(exception);
+    doThrow(exception).when(mock).someVoidMethod();
+Hints:
+ 1. missing thenReturn()
+ 2. you are trying to stub a final method, which is not supported
+ 3. you are stubbing the behaviour of another mock inside before 'thenReturn' instruction is completed
+
+	at app//com.BootcampPragma.Api_Emazon.application.service.CategoryServiceTest.testGetCategoriesOrderedByName_Positive(CategoryServiceTest.java:59)
+	at java.base@17.0.12/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base@17.0.12/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base@17.0.12/java.util.ArrayList.forEach(ArrayList.java:1511)
+</failure>
+  </testcase>
+  <testcase name="testGetCategoriesOrderedByName_Negative()" classname="com.BootcampPragma.Api_Emazon.application.service.CategoryServiceTest" time="0.067"/>
+  <testcase name="testSaveCategory_Positive()" classname="com.BootcampPragma.Api_Emazon.application.service.CategoryServiceTest" time="0.015">
+    <failure message="org.mockito.exceptions.base.MockitoException: &#10;Only void methods can doNothing()!&#10;Example of correct use of doNothing():&#10;    doNothing().&#10;    doThrow(new RuntimeException())&#10;    .when(mock).someVoidMethod();&#10;Above means:&#10;someVoidMethod() does nothing the 1st time but throws an exception the 2nd time is called" type="org.mockito.exceptions.base.MockitoException">org.mockito.exceptions.base.MockitoException: 
+Only void methods can doNothing()!
+Example of correct use of doNothing():
+    doNothing().
+    doThrow(new RuntimeException())
+    .when(mock).someVoidMethod();
+Above means:
+someVoidMethod() does nothing the 1st time but throws an exception the 2nd time is called
+	at app//com.BootcampPragma.Api_Emazon.application.service.CategoryServiceTest.testSaveCategory_Positive(CategoryServiceTest.java:46)
+	at java.base@17.0.12/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base@17.0.12/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base@17.0.12/java.util.ArrayList.forEach(ArrayList.java:1511)
+</failure>
+  </testcase>
+  <system-out><![CDATA[21:36:04.783 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.BootcampPragma.Api_Emazon.application.service.CategoryServiceTest]: CategoryServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+21:36:04.951 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.BootcampPragma.Api_Emazon.ApiEmazonApplication for test class com.BootcampPragma.Api_Emazon.application.service.CategoryServiceTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.2)
+
+2024-08-22T21:36:05.610-05:00  INFO 18476 --- [Api-Emazon] [    Test worker] c.B.A.a.service.CategoryServiceTest      : Starting CategoryServiceTest using Java 17.0.12 with PID 18476 (started by Kevin in E:\ARCHIVO\Lenguajes de Programacion\Java\boot camp\Api-Emazon)
+2024-08-22T21:36:05.612-05:00  INFO 18476 --- [Api-Emazon] [    Test worker] c.B.A.a.service.CategoryServiceTest      : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T21:36:06.787-05:00  INFO 18476 --- [Api-Emazon] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-22T21:36:06.903-05:00  INFO 18476 --- [Api-Emazon] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 102 ms. Found 3 JPA repository interfaces.
+2024-08-22T21:36:07.555-05:00  INFO 18476 --- [Api-Emazon] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-22T21:36:07.803-05:00  INFO 18476 --- [Api-Emazon] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2024-08-22T21:36:07.805-05:00  INFO 18476 --- [Api-Emazon] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-22T21:36:07.880-05:00  INFO 18476 --- [Api-Emazon] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-22T21:36:07.987-05:00  INFO 18476 --- [Api-Emazon] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-22T21:36:08.058-05:00  INFO 18476 --- [Api-Emazon] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-08-22T21:36:08.535-05:00  INFO 18476 --- [Api-Emazon] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-22T21:36:08.607-05:00  WARN 18476 --- [Api-Emazon] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-08-22T21:36:09.626-05:00  INFO 18476 --- [Api-Emazon] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-22T21:36:09.689-05:00  INFO 18476 --- [Api-Emazon] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-22T21:36:10.415-05:00  WARN 18476 --- [Api-Emazon] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-22T21:36:10.888-05:00  INFO 18476 --- [Api-Emazon] [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2024-08-22T21:36:11.012-05:00  INFO 18476 --- [Api-Emazon] [    Test worker] c.B.A.a.service.CategoryServiceTest      : Started CategoryServiceTest in 5.801 seconds (process running for 7.515)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
