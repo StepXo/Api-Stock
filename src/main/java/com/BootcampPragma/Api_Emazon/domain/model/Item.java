@@ -6,13 +6,17 @@ public class Item {
     private String description;
     private Long quantity;
     private double price;
+    private Long id_category;
+    private Long id_brand;
 
-    public Item(long id, String name, String description, Long quantity, double price) {
+    public Item(long id, String name, String description, Long quantity, double price, Long id_category, Long id_brand) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.quantity = quantity;
         this.price = price;
+        this.id_category = id_category;
+        this.id_brand = id_brand;
     }
 
     public Long getQuantity() {
@@ -43,6 +47,10 @@ public class Item {
         return description;
     }
 
+    public Long getId_category() {return id_category;}
+
+    public Long getId_brand() {return id_brand;}
+
     public void setId(long id) {
         this.id = id;
     }
@@ -54,4 +62,8 @@ public class Item {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public void setId_category(Long id_category) {this.id_category = id_category;}
+
+    public void setId_brand(Long id_brand) {this.id_brand = id_brand;}
 }
