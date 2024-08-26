@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -47,7 +48,8 @@ public class CategoryServiceTest {
 
         assertDoesNotThrow(() -> categoryService.saveCategory(categoryDto));
 
-        verify(categoryServicePort, times(1)).saveCategory(category);
+        verify(categoryRequest, times(1)).toCategory(categoryDto); // Verifica que se llame a toCategory
+        verify(categoryServicePort, times(1)).saveCategory(category); // Verifica que se llame a saveCategory
     }
 
     @Test
@@ -56,14 +58,15 @@ public class CategoryServiceTest {
         Category category2 = new Category(2, "Electronics", "Electronics Category");
 
         when(categoryServicePort.getAllCategories()).thenReturn(List.of(category1, category2));
-
         when(categoryRequest.toCategoryDto(category1)).thenReturn(new CategoryDto(1, "Books", "Books Category"));
         when(categoryRequest.toCategoryDto(category2)).thenReturn(new CategoryDto(2, "Electronics", "Electronics Category"));
+
         Page<CategoryDto> result = categoryService.getCategoriesOrderedByName("asc", 0, 10);
 
         assertNotNull(result);
-        assertEquals(2, result.getContent().size());
-        assertEquals("Books", result.getContent().get(0).getName());
+        assertEquals(2, result.getContent().size(), "The number of categories in the result should be 2");
+        assertEquals("Books", result.getContent().get(0).getName(), "The first category should be 'Books'");
+        assertEquals("Electronics", result.getContent().get(1).getName(), "The second category should be 'Electronics'");
     }
 
     @Test
