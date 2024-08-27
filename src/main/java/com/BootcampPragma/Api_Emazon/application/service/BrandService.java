@@ -1,7 +1,6 @@
 package com.BootcampPragma.Api_Emazon.application.service;
 
 import com.BootcampPragma.Api_Emazon.application.dto.BrandDto;
-import com.BootcampPragma.Api_Emazon.application.dto.BrandDto;
 import com.BootcampPragma.Api_Emazon.application.mapper.BrandRequest;
 import com.BootcampPragma.Api_Emazon.domain.api.BrandServicePort;
 import com.BootcampPragma.Api_Emazon.domain.model.Brand;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

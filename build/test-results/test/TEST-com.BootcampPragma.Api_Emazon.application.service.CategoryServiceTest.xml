@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.BootcampPragma.Api_Emazon.application.service.CategoryServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-08-27T00:16:10" hostname="DESKTOP-GTNTTOM" time="0.911">
+  <properties/>
+  <testcase name="testGetCategoriesOrderedByName_Positive()" classname="com.BootcampPragma.Api_Emazon.application.service.CategoryServiceTest" time="0.851"/>
+  <testcase name="testGetCategoriesOrderedByName_Negative()" classname="com.BootcampPragma.Api_Emazon.application.service.CategoryServiceTest" time="0.01"/>
+  <testcase name="testSaveCategory_Positive()" classname="com.BootcampPragma.Api_Emazon.application.service.CategoryServiceTest" time="0.046"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
