@@ -11,13 +11,13 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemDto {
+public class ItemAuxDto {
     private long id;
     private String name;
     private String description;
     private long quantity;
     private double price;
-    private List<Long> category_id;
-    private Long brand_id;
+    private List<CategoryDto> category;
+    private BrandDto brand;
 
 }

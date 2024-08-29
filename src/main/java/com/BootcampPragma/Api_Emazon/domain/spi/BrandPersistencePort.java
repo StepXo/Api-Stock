@@ -10,6 +10,8 @@ public interface BrandPersistencePort {
 
     List<Brand> getAllBrands();
     public Brand getBrand(String name);
+    public Brand getBrand(Long id);
+
     void updateBrand(Brand brand);
 
     void deleteBrand(String marcaId);

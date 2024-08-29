@@ -23,7 +23,7 @@ public class CategoryService {
 
     public List<CategoryDto> getAllCategories() {
         return categoryServicePort
-                .getAllCategories()
+                .getAllCategories(categoryNames)
                 .stream()
                 .map(categoryRequest::toCategoryDto)
                 .collect(Collectors.toList()

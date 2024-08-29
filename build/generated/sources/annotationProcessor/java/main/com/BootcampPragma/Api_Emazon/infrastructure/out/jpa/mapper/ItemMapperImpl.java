@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-28T22:18:31-0500",
+    date = "2024-08-29T12:47:47-0500",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.8.jar, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
@@ -30,19 +30,19 @@ public class ItemMapperImpl implements ItemMapper {
             return null;
         }
 
-        long quantity = 0L;
-        double price = 0.0d;
         long id = 0L;
         String name = null;
         String description = null;
+        long quantity = 0L;
+        double price = 0.0d;
         List<Category> category = null;
         Brand brand = null;
 
-        quantity = item.getQuantity();
-        price = item.getPrice();
         id = item.getId();
         name = item.getName();
         description = item.getDescription();
+        quantity = item.getQuantity();
+        price = item.getPrice();
         category = categoryEntityListToCategoryList( item.getCategory() );
         brand = brandMapper.toBrand( item.getBrand() );
 

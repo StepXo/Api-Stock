@@ -1,6 +1,7 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.exeptionHandler;
 
 import com.BootcampPragma.Api_Emazon.domain.exeption.DescriptionIsTooLongException;
+import com.BootcampPragma.Api_Emazon.domain.exeption.CategoryListDuplicateExeption;
 import com.BootcampPragma.Api_Emazon.domain.exeption.NameIsTooLongException;
 import com.BootcampPragma.Api_Emazon.infrastructure.exeption.*;
 import org.springframework.http.HttpStatus;
@@ -31,9 +32,15 @@ public class ControllerAdvisor {
     }
     @ExceptionHandler(ItemAlreadyExistsException.class)
     public ResponseEntity<Map<String, String>> handleItemAlreadyExistsException(
-            BrandAlreadyExistsException itemAlreadyExistsException) {
+            ItemAlreadyExistsException itemAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.ITEM_ALREADY_EXIST.getMessage()));
+    }
+    @ExceptionHandler(CategoryListDuplicateExeption.class)
+    public ResponseEntity<Map<String, String>> categoryListDuplicateExeption(
+            CategoryListDuplicateExeption categoryListDuplicateExeption) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.CATEGORY_LIST_DUPLICATE.getMessage()));
     }
 
     //NotFound
@@ -83,4 +90,11 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.NAME_IS_TOO_LONG.getMessage()));
     }
+    @ExceptionHandler(CategoryListSizeException.class)
+    public ResponseEntity<Map<String, String>> categoryListSizeException(
+            CategoryListSizeException categoryListSizeException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.CATEGORY_SIZE_LIST.getMessage()));
+    }
+
 }

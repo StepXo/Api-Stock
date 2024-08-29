@@ -8,17 +8,17 @@ public class Item {
     private String description;
     private long quantity;
     private double price;
-    private List<Long> category_id;
-    private long brand_id;
+    private List<Category> category;
+    private Brand brand;
 
-    public Item(long id, String name, String description, long quantity, double price, List<Long> category_id, long brand_id) {
+    public Item(long id, String name, String description, long quantity, double price, List<Category> category, Brand brand) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.quantity = quantity;
         this.price = price;
-        this.category_id = category_id;
-        this.brand_id = brand_id;
+        this.category = category;
+        this.brand = brand;
     }
 
     public long getId() {
@@ -41,12 +41,12 @@ public class Item {
         return price;
     }
 
-    public List<Long> getCategory_id() {
-        return category_id;
+    public List<Category> getCategory() {
+        return category;
     }
 
-    public long getBrand_id() {
-        return brand_id;
+    public Brand getBrand() {
+        return brand;
     }
 
     public void setId(long id) {
@@ -69,11 +69,11 @@ public class Item {
         this.price = price;
     }
 
-    public void setCategory_id(List<Long> category_id) {
-        this.category_id = category_id;
+    public void setCategory(List<Category> category) {
+        this.category = category;
     }
 
-    public void setBrand_id(long brand_id) {
-        this.brand_id = brand_id;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 }

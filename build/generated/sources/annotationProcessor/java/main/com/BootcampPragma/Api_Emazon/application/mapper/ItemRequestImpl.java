@@ -1,6 +1,7 @@
 package com.BootcampPragma.Api_Emazon.application.mapper;
 
 import com.BootcampPragma.Api_Emazon.application.dto.CategoryDto;
+import com.BootcampPragma.Api_Emazon.application.dto.ItemAuxDto;
 import com.BootcampPragma.Api_Emazon.application.dto.ItemDto;
 import com.BootcampPragma.Api_Emazon.domain.model.Brand;
 import com.BootcampPragma.Api_Emazon.domain.model.Category;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-28T22:07:42-0500",
+    date = "2024-08-29T14:10:41-0500",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.8.jar, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
@@ -25,22 +26,22 @@ public class ItemRequestImpl implements ItemRequest {
     private BrandRequest brandRequest;
 
     @Override
-    public ItemDto toItemDto(Item item) {
+    public ItemAuxDto toItemDto(Item item) {
         if ( item == null ) {
             return null;
         }
 
-        ItemDto itemDto = new ItemDto();
+        ItemAuxDto itemAuxDto = new ItemAuxDto();
 
-        itemDto.setCategory( categoryListToCategoryDtoList( item.getCategory() ) );
-        itemDto.setBrand( brandRequest.toBrandDto( item.getBrand() ) );
-        itemDto.setId( item.getId() );
-        itemDto.setName( item.getName() );
-        itemDto.setDescription( item.getDescription() );
-        itemDto.setQuantity( item.getQuantity() );
-        itemDto.setPrice( item.getPrice() );
+        itemAuxDto.setId( item.getId() );
+        itemAuxDto.setName( item.getName() );
+        itemAuxDto.setDescription( item.getDescription() );
+        itemAuxDto.setQuantity( item.getQuantity() );
+        itemAuxDto.setPrice( item.getPrice() );
+        itemAuxDto.setCategory( categoryListToCategoryDtoList( item.getCategory() ) );
+        itemAuxDto.setBrand( brandRequest.toBrandDto( item.getBrand() ) );
 
-        return itemDto;
+        return itemAuxDto;
     }
 
     @Override
@@ -51,19 +52,19 @@ public class ItemRequestImpl implements ItemRequest {
 
         List<Category> category = null;
         Brand brand = null;
-        long quantity = 0L;
-        double price = 0.0d;
         long id = 0L;
         String name = null;
         String description = null;
+        long quantity = 0L;
+        double price = 0.0d;
 
-        category = categoryDtoListToCategoryList( itemDto.getCategory() );
-        brand = brandRequest.toBrand( itemDto.getBrand() );
-        quantity = itemDto.getQuantity();
-        price = itemDto.getPrice();
+        category = mapToCategories( itemDto.getCategory_id() );
+        brand = toBrand( itemDto.getBrand_id() );
         id = itemDto.getId();
         name = itemDto.getName();
         description = itemDto.getDescription();
+        quantity = itemDto.getQuantity();
+        price = itemDto.getPrice();
 
         Item item = new Item( id, name, description, quantity, price, category, brand );
 
@@ -78,19 +79,6 @@ public class ItemRequestImpl implements ItemRequest {
         List<CategoryDto> list1 = new ArrayList<CategoryDto>( list.size() );
         for ( Category category : list ) {
             list1.add( categoryRequest.toCategoryDto( category ) );
-        }
-
-        return list1;
-    }
-
-    protected List<Category> categoryDtoListToCategoryList(List<CategoryDto> list) {
-        if ( list == null ) {
-            return null;
-        }
-
-        List<Category> list1 = new ArrayList<Category>( list.size() );
-        for ( CategoryDto categoryDto : list ) {
-            list1.add( categoryRequest.toCategory( categoryDto ) );
         }
 
         return list1;

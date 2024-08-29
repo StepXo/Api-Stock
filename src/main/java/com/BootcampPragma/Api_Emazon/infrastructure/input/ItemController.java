@@ -1,5 +1,6 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.input;
 
+import com.BootcampPragma.Api_Emazon.application.dto.ItemAuxDto;
 import com.BootcampPragma.Api_Emazon.application.dto.ItemDto;
 import com.BootcampPragma.Api_Emazon.application.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class ItemController {
 
 
     @GetMapping
-    private List<ItemDto> getItemList(){
+    private List<ItemAuxDto> getItemList(){
         return itemService.getItemList();
     }
 

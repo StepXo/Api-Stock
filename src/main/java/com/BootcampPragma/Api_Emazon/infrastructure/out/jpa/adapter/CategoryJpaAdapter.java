@@ -24,9 +24,6 @@ public class CategoryJpaAdapter implements CategoryPersistencePort {
     @Override
     public List<Category> getAllCategories() {
 
-        List<CategoryEntity> categoryEntityList = categoryRepository.findAll();
-        if (categoryEntityList.isEmpty()){throw new NoDataFoundException();}
-
         return categoryRepository
                 .findAll()
                 .stream()
@@ -53,6 +50,10 @@ public class CategoryJpaAdapter implements CategoryPersistencePort {
     @Override
     public Category getCategory(String name) {
         return categoryMapper.toCategory(categoryRepository.findByName(name)
+                .orElseThrow(CategoryNotFoundException::new));
+    }
+    public Category getCategory(Long id) {
+        return categoryMapper.toCategory(categoryRepository.findById(id)
                 .orElseThrow(CategoryNotFoundException::new));
     }
 

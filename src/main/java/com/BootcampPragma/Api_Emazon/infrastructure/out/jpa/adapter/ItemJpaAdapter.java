@@ -1,10 +1,9 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.adapter;
 
+import com.BootcampPragma.Api_Emazon.domain.model.Category;
 import com.BootcampPragma.Api_Emazon.domain.model.Item;
 import com.BootcampPragma.Api_Emazon.domain.spi.ItemPersistencePort;
 import com.BootcampPragma.Api_Emazon.infrastructure.exeption.*;
-import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.BrandEntity;
-import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.CategoryEntity;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.ItemEntity;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.mapper.ItemMapper;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.repository.BrandRepository;
@@ -55,18 +54,18 @@ public class ItemJpaAdapter implements ItemPersistencePort {
 
     @Override
     public Item saveItem(Item item) {
+        if (itemRepository.findByName(item.getName()).isPresent()) {
+            throw new ItemAlreadyExistsException();
+        }
+        for (Category category : item.getCategory()) {
+            if (categoryRepository.findById(category.getId()).isEmpty()) {
+                throw new CategoryNotFoundException();
+            }
+        }
+        if (item.getBrand() != null && brandRepository.findById(item.getBrand().getId()).isEmpty()) {
+            throw new BrandNotFoundException();
+        }
         ItemEntity itemEntity = itemMapper.toItemEntity(item);
-
-        List<CategoryEntity> categoryEntities = item.getCategory_id().stream()
-                .map(id -> categoryRepository.findById(id)
-                        .orElseThrow(CategoryNotFoundException::new))
-                .collect(Collectors.toList());
-        itemEntity.setCategory(categoryEntities);
-
-        BrandEntity brandEntity = brandRepository.findById(item.getBrand_id())
-                .orElseThrow(BrandNotFoundException::new);
-        itemEntity.setBrand(brandEntity);
-
         itemEntity = itemRepository.save(itemEntity);
         return itemMapper.toItem(itemEntity);
     }
@@ -75,21 +74,6 @@ public class ItemJpaAdapter implements ItemPersistencePort {
     public void updateItem(Item item){
         ItemEntity itemEntity = itemRepository.findById(item.getId())
                 .orElseThrow(ItemNotFoundException::new);
-
-        itemEntity.setName(item.getName());
-        itemEntity.setDescription(item.getDescription());
-        itemEntity.setQuantity(item.getQuantity());
-        itemEntity.setPrice(item.getPrice());
-
-        List<CategoryEntity> categoryEntities = item.getCategory_id().stream()
-                .map(id -> categoryRepository.findById(id)
-                        .orElseThrow(CategoryNotFoundException::new))
-                .collect(Collectors.toList());
-        itemEntity.setCategory(categoryEntities);
-
-        BrandEntity brandEntity = brandRepository.findById(item.getBrand_id())
-                .orElseThrow(BrandNotFoundException::new);
-        itemEntity.setBrand(brandEntity);
 
         itemRepository.save(itemEntity);
     }
