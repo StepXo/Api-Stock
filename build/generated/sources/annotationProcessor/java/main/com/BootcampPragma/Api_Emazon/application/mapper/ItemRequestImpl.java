@@ -1,63 +1,98 @@
 package com.BootcampPragma.Api_Emazon.application.mapper;
 
+import com.BootcampPragma.Api_Emazon.application.dto.CategoryDto;
 import com.BootcampPragma.Api_Emazon.application.dto.ItemDto;
+import com.BootcampPragma.Api_Emazon.domain.model.Brand;
+import com.BootcampPragma.Api_Emazon.domain.model.Category;
 import com.BootcampPragma.Api_Emazon.domain.model.Item;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-22T20:20:46-0500",
+    date = "2024-08-28T22:07:42-0500",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.8.jar, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
 public class ItemRequestImpl implements ItemRequest {
 
+    @Autowired
+    private CategoryRequest categoryRequest;
+    @Autowired
+    private BrandRequest brandRequest;
+
     @Override
-    public Item toItem(ItemDto article) {
-        if ( article == null ) {
+    public ItemDto toItemDto(Item item) {
+        if ( item == null ) {
             return null;
         }
 
-        Long quantity = null;
-        double price = 0.0d;
-        long id = 0L;
-        String name = null;
-        String description = null;
-        Long id_category = null;
-        Long id_brand = null;
+        ItemDto itemDto = new ItemDto();
 
-        quantity = article.getQuantity();
-        price = article.getPrice();
-        id = article.getId();
-        name = article.getName();
-        description = article.getDescription();
-        id_category = article.getId_category();
-        id_brand = article.getId_brand();
+        itemDto.setCategory( categoryListToCategoryDtoList( item.getCategory() ) );
+        itemDto.setBrand( brandRequest.toBrandDto( item.getBrand() ) );
+        itemDto.setId( item.getId() );
+        itemDto.setName( item.getName() );
+        itemDto.setDescription( item.getDescription() );
+        itemDto.setQuantity( item.getQuantity() );
+        itemDto.setPrice( item.getPrice() );
 
-        Item item = new Item( id, name, description, quantity, price, id_category, id_brand );
-
-        return item;
+        return itemDto;
     }
 
     @Override
-    public ItemDto toItemDto(Item itemDto) {
+    public Item toItem(ItemDto itemDto) {
         if ( itemDto == null ) {
             return null;
         }
 
-        ItemDto itemDto1 = new ItemDto();
+        List<Category> category = null;
+        Brand brand = null;
+        long quantity = 0L;
+        double price = 0.0d;
+        long id = 0L;
+        String name = null;
+        String description = null;
 
-        itemDto1.setId( itemDto.getId() );
-        itemDto1.setName( itemDto.getName() );
-        itemDto1.setDescription( itemDto.getDescription() );
-        if ( itemDto.getQuantity() != null ) {
-            itemDto1.setQuantity( itemDto.getQuantity() );
+        category = categoryDtoListToCategoryList( itemDto.getCategory() );
+        brand = brandRequest.toBrand( itemDto.getBrand() );
+        quantity = itemDto.getQuantity();
+        price = itemDto.getPrice();
+        id = itemDto.getId();
+        name = itemDto.getName();
+        description = itemDto.getDescription();
+
+        Item item = new Item( id, name, description, quantity, price, category, brand );
+
+        return item;
+    }
+
+    protected List<CategoryDto> categoryListToCategoryDtoList(List<Category> list) {
+        if ( list == null ) {
+            return null;
         }
-        itemDto1.setPrice( itemDto.getPrice() );
-        itemDto1.setId_category( itemDto.getId_category() );
-        itemDto1.setId_brand( itemDto.getId_brand() );
 
-        return itemDto1;
+        List<CategoryDto> list1 = new ArrayList<CategoryDto>( list.size() );
+        for ( Category category : list ) {
+            list1.add( categoryRequest.toCategoryDto( category ) );
+        }
+
+        return list1;
+    }
+
+    protected List<Category> categoryDtoListToCategoryList(List<CategoryDto> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<Category> list1 = new ArrayList<Category>( list.size() );
+        for ( CategoryDto categoryDto : list ) {
+            list1.add( categoryRequest.toCategory( categoryDto ) );
+        }
+
+        return list1;
     }
 }

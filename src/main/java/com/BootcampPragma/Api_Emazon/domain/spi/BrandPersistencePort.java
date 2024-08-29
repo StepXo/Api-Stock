@@ -9,7 +9,7 @@ public interface BrandPersistencePort {
     Brand saveBrand(Brand brand);
 
     List<Brand> getAllBrands();
-
+    public Brand getBrand(String name);
     void updateBrand(Brand brand);
 
     void deleteBrand(String marcaId);

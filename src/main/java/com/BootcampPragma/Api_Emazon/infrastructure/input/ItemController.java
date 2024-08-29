@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/article")
+@RequestMapping("/item")
 @RequiredArgsConstructor
 public class ItemController {
 
@@ -21,8 +21,8 @@ public class ItemController {
     }
 
     @PostMapping
-    private void saveItem(@RequestBody ItemDto article){
-        itemService.saveItem(article);
+    private void saveItem(@RequestBody ItemDto itemDto){
+        itemService.saveItem(itemDto);
     }
 
 }

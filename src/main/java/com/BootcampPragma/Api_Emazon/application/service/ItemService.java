@@ -1,8 +1,10 @@
 package com.BootcampPragma.Api_Emazon.application.service;
 
 import com.BootcampPragma.Api_Emazon.application.dto.ItemDto;
+import com.BootcampPragma.Api_Emazon.application.dto.ItemDto;
 import com.BootcampPragma.Api_Emazon.application.mapper.ItemRequest;
 import com.BootcampPragma.Api_Emazon.domain.api.ItemServicePort;
+import com.BootcampPragma.Api_Emazon.domain.model.Item;
 import com.BootcampPragma.Api_Emazon.domain.model.Item;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +30,15 @@ public class ItemService {
                 );
     }
 
-    public void saveItem(ItemDto ItemDto){
-        Item item = itemRequest.toItem(ItemDto);
+    public void saveItem(ItemDto itemDto) {
+
+        Item item = itemRequest.toItem(itemDto);
         itemServicePort.saveItem(item);
+    }
+    
+    public ItemDto getItem(String name){
+        Item item = itemServicePort.getItem(name);
+        return itemRequest.toItemDto(item);
     }
 
 }

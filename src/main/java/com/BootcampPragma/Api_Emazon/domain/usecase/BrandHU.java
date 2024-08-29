@@ -4,6 +4,7 @@ import com.BootcampPragma.Api_Emazon.domain.api.BrandServicePort;
 import com.BootcampPragma.Api_Emazon.domain.exeption.DescriptionIsTooLongException;
 import com.BootcampPragma.Api_Emazon.domain.exeption.NameIsTooLongException;
 import com.BootcampPragma.Api_Emazon.domain.model.Brand;
+import com.BootcampPragma.Api_Emazon.domain.model.Category;
 import com.BootcampPragma.Api_Emazon.domain.spi.BrandPersistencePort;
 import org.springframework.data.domain.Pageable;
 
@@ -41,6 +42,11 @@ public class BrandHU implements BrandServicePort {
             throw new DescriptionIsTooLongException();
         }
         brandPersistencePort.saveBrand(brand);
+    }
+
+    @Override
+    public Brand getBrand(String name){
+        return brandPersistencePort.getBrand(name);
     }
 
     @Override

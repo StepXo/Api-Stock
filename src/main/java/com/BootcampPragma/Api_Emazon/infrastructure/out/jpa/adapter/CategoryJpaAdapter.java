@@ -4,12 +4,12 @@ import com.BootcampPragma.Api_Emazon.domain.model.Category;
 import com.BootcampPragma.Api_Emazon.domain.spi.CategoryPersistencePort;
 import com.BootcampPragma.Api_Emazon.infrastructure.exeption.CategoryAlreadyExistsException;
 import com.BootcampPragma.Api_Emazon.infrastructure.exeption.DescriptionNotFoundException;
+import com.BootcampPragma.Api_Emazon.infrastructure.exeption.CategoryNotFoundException;
 import com.BootcampPragma.Api_Emazon.infrastructure.exeption.NoDataFoundException;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.CategoryEntity;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.mapper.CategoryMapper;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,6 +48,12 @@ public class CategoryJpaAdapter implements CategoryPersistencePort {
                 categoryMapper.toCategoryEntity(category)
         );
         return categoryMapper.toCategory(categoryEntity);
+    }
+
+    @Override
+    public Category getCategory(String name) {
+        return categoryMapper.toCategory(categoryRepository.findByName(name)
+                .orElseThrow(CategoryNotFoundException::new));
     }
 
     @Override

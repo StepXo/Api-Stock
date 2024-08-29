@@ -57,9 +57,9 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.CATEGORY_NOT_FOUND.getMessage()));
     }
-    @ExceptionHandler(BrnadNotFoundException.class)
+    @ExceptionHandler(BrandNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleMarcaNotFoundException(
-            BrnadNotFoundException brnadNotFoundException) {
+            BrandNotFoundException brandNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.MARCA_NOT_FOUND.getMessage()));
     }

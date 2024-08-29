@@ -11,12 +11,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -57,7 +55,7 @@ public class CategoryServiceTest {
         Category category1 = new Category(1, "Books", "Books Category");
         Category category2 = new Category(2, "Electronics", "Electronics Category");
 
-        when(categoryServicePort.getAllCategories()).thenReturn(List.of(category1, category2));
+        when(categoryServicePort.getAllCategories(categoryNames)).thenReturn(List.of(category1, category2));
         when(categoryRequest.toCategoryDto(category1)).thenReturn(new CategoryDto(1, "Books", "Books Category"));
         when(categoryRequest.toCategoryDto(category2)).thenReturn(new CategoryDto(2, "Electronics", "Electronics Category"));
 
@@ -74,7 +72,7 @@ public class CategoryServiceTest {
         int page = 0, size = 10;
         Pageable pageable = PageRequest.of(page, size);
 
-        when(categoryServicePort.getAllCategories()).thenReturn(List.of());
+        when(categoryServicePort.getAllCategories(categoryNames)).thenReturn(List.of());
 
         Page<CategoryDto> result = categoryService.getCategoriesOrderedByName("asc", page, size);
 

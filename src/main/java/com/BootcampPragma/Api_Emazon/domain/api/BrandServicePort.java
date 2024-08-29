@@ -1,14 +1,13 @@
 package com.BootcampPragma.Api_Emazon.domain.api;
 
 import com.BootcampPragma.Api_Emazon.domain.model.Brand;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface BrandServicePort {
 
         Brand saveBrand(Brand brand);
-
+        public Brand getBrand(String name);
         List<Brand> getAllBrands();
 
         void updateBrand(Brand brand);

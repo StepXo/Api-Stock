@@ -1,8 +1,10 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.adapter;
 
 import com.BootcampPragma.Api_Emazon.domain.model.Brand;
+import com.BootcampPragma.Api_Emazon.domain.model.Brand;
 import com.BootcampPragma.Api_Emazon.domain.spi.BrandPersistencePort;
 import com.BootcampPragma.Api_Emazon.infrastructure.exeption.BrandAlreadyExistsException;
+import com.BootcampPragma.Api_Emazon.infrastructure.exeption.BrandNotFoundException;
 import com.BootcampPragma.Api_Emazon.infrastructure.exeption.DescriptionNotFoundException;
 import com.BootcampPragma.Api_Emazon.infrastructure.exeption.NoDataFoundException;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.BrandEntity;
@@ -48,6 +50,11 @@ public class BrandJpaAdapter implements BrandPersistencePort {
                 brandMapper.toMarcaEntity(brand)
         );
         return brandMapper.toBrand(brandEntity);
+    }
+    @Override
+    public Brand getBrand(String name) {
+        return brandMapper.toBrand(brandRepository.findByName(name)
+                .orElseThrow(BrandNotFoundException::new));
     }
 
     @Override
