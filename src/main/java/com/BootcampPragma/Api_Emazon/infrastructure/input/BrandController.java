@@ -23,7 +23,7 @@ public class BrandController {
     }
 
     @GetMapping("/{order}")
-    public Page<BrandDto> getCategories(
+    private Page<BrandDto> getCategories(
             @PathVariable String order,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {

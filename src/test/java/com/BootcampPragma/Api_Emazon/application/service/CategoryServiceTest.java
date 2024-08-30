@@ -2,6 +2,8 @@ package com.BootcampPragma.Api_Emazon.application.service;
 
 import com.BootcampPragma.Api_Emazon.application.dto.CategoryDto;
 import com.BootcampPragma.Api_Emazon.application.mapper.CategoryRequest;
+import com.BootcampPragma.Api_Emazon.application.util.PaginationUtil;
+import com.BootcampPragma.Api_Emazon.application.util.SorterUtil;
 import com.BootcampPragma.Api_Emazon.domain.api.CategoryServicePort;
 import com.BootcampPragma.Api_Emazon.domain.model.Category;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -23,6 +27,12 @@ public class CategoryServiceTest {
 
     @Mock
     private CategoryRequest categoryRequest;
+
+    @Mock
+    private SorterUtil sorterUtil;
+
+    @Mock
+    private PaginationUtil paginationUtil;
 
     @InjectMocks
     private CategoryService categoryService;
@@ -53,14 +63,18 @@ public class CategoryServiceTest {
         verify(categoryServicePort, times(1)).saveCategory(category); // Verifica que se llame a saveCategory
     }
 
-
-
     @Test
     void testGetCategoriesOrderedByName_Positive() {
-
+        // Configurar los mocks
         when(categoryServicePort.getAllCategories()).thenReturn(List.of(category, category2));
         when(categoryRequest.toCategoryDto(category)).thenReturn(categoryDto);
         when(categoryRequest.toCategoryDto(category2)).thenReturn(categoryDto2);
+        when(sorterUtil.getSortedCategories("asc", List.of(categoryDto, categoryDto2)))
+                .thenReturn(List.of(categoryDto, categoryDto2)); // Ajusta según la lógica esperada
+
+        Page<CategoryDto> pagedResult = new PageImpl<>(List.of(categoryDto, categoryDto2), PageRequest.of(0, 10), 2);
+        when(paginationUtil.getCategoriesPagination("asc", 0, 10, List.of(categoryDto, categoryDto2)))
+                .thenReturn(pagedResult);
 
         Page<CategoryDto> result = categoryService.getCategoriesOrderedByName("asc", 0, 10);
 
@@ -72,9 +86,13 @@ public class CategoryServiceTest {
 
     @Test
     void testGetCategoriesOrderedByName_Negative() {
-
-
         when(categoryServicePort.getAllCategories()).thenReturn(List.of());
+        when(sorterUtil.getSortedCategories("asc", List.of()))
+                .thenReturn(List.of()); // Ajusta según la lógica esperada
+
+        Page<CategoryDto> pagedResult = new PageImpl<>(List.of(), PageRequest.of(0, 10), 0);
+        when(paginationUtil.getCategoriesPagination("asc", 0, 10, List.of()))
+                .thenReturn(pagedResult);
 
         Page<CategoryDto> result = categoryService.getCategoriesOrderedByName("asc", 0, 10);
 

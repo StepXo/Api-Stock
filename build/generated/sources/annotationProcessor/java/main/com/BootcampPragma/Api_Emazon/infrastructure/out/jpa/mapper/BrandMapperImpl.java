@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-29T21:41:23-0500",
+    date = "2024-08-29T22:15:18-0500",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.8.jar, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
@@ -19,11 +19,15 @@ public class BrandMapperImpl implements BrandMapper {
             return null;
         }
 
-        Brand brand1 = new Brand();
+        long id = 0L;
+        String name = null;
+        String description = null;
 
-        brand1.setId( brand.getId() );
-        brand1.setName( brand.getName() );
-        brand1.setDescription( brand.getDescription() );
+        id = brand.getId();
+        name = brand.getName();
+        description = brand.getDescription();
+
+        Brand brand1 = new Brand( id, name, description );
 
         return brand1;
     }

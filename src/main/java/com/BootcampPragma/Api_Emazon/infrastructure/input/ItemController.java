@@ -1,9 +1,11 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.input;
 
+import com.BootcampPragma.Api_Emazon.application.dto.CategoryDto;
 import com.BootcampPragma.Api_Emazon.application.dto.ItemAuxDto;
 import com.BootcampPragma.Api_Emazon.application.dto.ItemDto;
 import com.BootcampPragma.Api_Emazon.application.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +21,22 @@ public class ItemController {
     @GetMapping
     private List<ItemAuxDto> getItemList(){
         return itemService.getItemList();
+    }
+
+    @GetMapping("/{order}")
+    private Page<ItemAuxDto> getCategories(
+            @PathVariable String order,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return itemService.getItemsOrdered(order, page, size);
+    }
+    @GetMapping("/{order}/{variable}")
+    private Page<ItemAuxDto> getCategories(
+            @PathVariable String order,
+            @PathVariable String variable,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return itemService.getItemsOrdered(order,variable, page, size);
     }
 
     @PostMapping
