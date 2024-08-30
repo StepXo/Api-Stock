@@ -9,17 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
 public class CategoryServiceTest {
 
     @Mock
@@ -31,33 +27,40 @@ public class CategoryServiceTest {
     @InjectMocks
     private CategoryService categoryService;
 
+    private CategoryDto categoryDto;
+    private CategoryDto categoryDto2;
+
+    private Category category;
+    private Category category2;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        category = new Category(1, "Books", "Books Category");
+        categoryDto = new CategoryDto(1, "Books", "Books Category");
+        category2 = new Category(2, "Electronics", "Electronics Category");
+        categoryDto2 = new CategoryDto(2, "Electronics", "Electronics Category");
+
     }
 
     @Test
     void testSaveCategory_Positive() {
-        CategoryDto categoryDto = new CategoryDto(1, "Books", "Books Category");
-        Category category = new Category(1, "Books", "Books Category");
 
         when(categoryRequest.toCategory(categoryDto)).thenReturn(category);
-        doNothing().when(categoryServicePort).saveCategory(category);
-
         assertDoesNotThrow(() -> categoryService.saveCategory(categoryDto));
 
         verify(categoryRequest, times(1)).toCategory(categoryDto); // Verifica que se llame a toCategory
         verify(categoryServicePort, times(1)).saveCategory(category); // Verifica que se llame a saveCategory
     }
 
+
+
     @Test
     void testGetCategoriesOrderedByName_Positive() {
-        Category category1 = new Category(1, "Books", "Books Category");
-        Category category2 = new Category(2, "Electronics", "Electronics Category");
 
-        when(categoryServicePort.getAllCategories(categoryNames)).thenReturn(List.of(category1, category2));
-        when(categoryRequest.toCategoryDto(category1)).thenReturn(new CategoryDto(1, "Books", "Books Category"));
-        when(categoryRequest.toCategoryDto(category2)).thenReturn(new CategoryDto(2, "Electronics", "Electronics Category"));
+        when(categoryServicePort.getAllCategories()).thenReturn(List.of(category, category2));
+        when(categoryRequest.toCategoryDto(category)).thenReturn(categoryDto);
+        when(categoryRequest.toCategoryDto(category2)).thenReturn(categoryDto2);
 
         Page<CategoryDto> result = categoryService.getCategoriesOrderedByName("asc", 0, 10);
 
@@ -69,12 +72,11 @@ public class CategoryServiceTest {
 
     @Test
     void testGetCategoriesOrderedByName_Negative() {
-        int page = 0, size = 10;
-        Pageable pageable = PageRequest.of(page, size);
 
-        when(categoryServicePort.getAllCategories(categoryNames)).thenReturn(List.of());
 
-        Page<CategoryDto> result = categoryService.getCategoriesOrderedByName("asc", page, size);
+        when(categoryServicePort.getAllCategories()).thenReturn(List.of());
+
+        Page<CategoryDto> result = categoryService.getCategoriesOrderedByName("asc", 0, 10);
 
         assertNotNull(result);
         assertTrue(result.getContent().isEmpty());

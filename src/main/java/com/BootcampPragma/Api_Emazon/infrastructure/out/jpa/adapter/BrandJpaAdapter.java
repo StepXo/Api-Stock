@@ -11,8 +11,6 @@ import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.repository.BrandRepo
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 
 @RequiredArgsConstructor
 public class BrandJpaAdapter implements BrandPersistencePort {
@@ -26,8 +24,7 @@ public class BrandJpaAdapter implements BrandPersistencePort {
                 .findAll()
                 .stream()
                 .map(brandMapper::toBrand)
-                .collect(Collectors.toList()
-                );
+                .toList();
     }
 
     @Override
@@ -40,7 +37,7 @@ public class BrandJpaAdapter implements BrandPersistencePort {
         }
 
         BrandEntity brandEntity = this.brandRepository.save(
-                brandMapper.toMarcaEntity(brand)
+                brandMapper.toBrandEntity(brand)
         );
         return brandMapper.toBrand(brandEntity);
     }
@@ -62,8 +59,8 @@ public class BrandJpaAdapter implements BrandPersistencePort {
         } else if (brand.getDescription().isEmpty()){
             throw new DescriptionNotFoundException();
         }
-        BrandEntity brandEntity = this.brandRepository.save(
-                brandMapper.toMarcaEntity(brand));
+        this.brandRepository.save(
+                brandMapper.toBrandEntity(brand));
     };
 
     @Override

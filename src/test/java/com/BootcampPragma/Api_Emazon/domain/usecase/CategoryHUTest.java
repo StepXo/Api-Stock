@@ -1,6 +1,5 @@
 package com.BootcampPragma.Api_Emazon.domain.usecase;
 
-import com.BootcampPragma.Api_Emazon.domain.api.CategoryServicePort;
 import com.BootcampPragma.Api_Emazon.domain.exeption.DescriptionIsTooLongException;
 import com.BootcampPragma.Api_Emazon.domain.exeption.NameIsTooLongException;
 import com.BootcampPragma.Api_Emazon.domain.model.Category;
@@ -10,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -22,37 +23,103 @@ public class CategoryHUTest {
     @InjectMocks
     private CategoryHU categoryHU;
 
+    private Category category;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        category = new Category(1L, "Test Category", "Description");
     }
 
     @Test
-    void testSaveCategory_Positive() {
-        Category category = new Category(1, "Books", "Books Category");
-
+    void saveCategory_Success() {
         when(categoryPersistencePort.saveCategory(category)).thenReturn(category);
 
-        Category result = categoryHU.saveCategory(category);
+        Category savedCategory = categoryHU.saveCategory(category);
 
-        assertNotNull(result);
-        assertEquals("Books", result.getName());
+        assertNotNull(savedCategory);
+        assertEquals(category.getName(), savedCategory.getName());
         verify(categoryPersistencePort, times(1)).saveCategory(category);
     }
 
     @Test
-    void testSaveCategory_NameTooLong_Negative() {
-        Category category = new Category(1, "This is a very long category name that exceeds fifty characters", "Books Category");
+    void saveCategory_NameTooLong() {
+        Category longNameCategory = new Category(1L, "A".repeat(51), "Description");
 
-        assertThrows(NameIsTooLongException.class, () -> categoryHU.saveCategory(category));
+        NameIsTooLongException thrown = assertThrows(NameIsTooLongException.class, () -> {
+            categoryHU.saveCategory(longNameCategory);
+        });
+
+        assertNotNull(thrown);
         verify(categoryPersistencePort, never()).saveCategory(any());
     }
 
     @Test
-    void testSaveCategory_DescriptionTooLong_Negative() {
-        Category category = new Category(1, "Books", "This is a very long description that exceeds ninety characters, and it should throw an exception");
+    void saveCategory_DescriptionTooLong() {
+        Category longDescriptionCategory = new Category(1L, "Category", "A".repeat(121));
 
-        assertThrows(DescriptionIsTooLongException.class, () -> categoryHU.saveCategory(category));
+        DescriptionIsTooLongException thrown = assertThrows(DescriptionIsTooLongException.class, () -> {
+            categoryHU.saveCategory(longDescriptionCategory);
+        });
+
+        assertNotNull(thrown);
         verify(categoryPersistencePort, never()).saveCategory(any());
     }
+
+    @Test
+    void getAllCategorys() {
+        when(categoryPersistencePort.getAllCategories()).thenReturn(List.of(category));
+
+        List<Category> categorys = categoryHU.getAllCategories();
+
+        assertNotNull(categorys);
+        assertEquals(1, categorys.size());
+        assertEquals(category.getName(), categorys.get(0).getName());
+        verify(categoryPersistencePort, times(1)).getAllCategories();
+    }
+
+    @Test
+    void updateCategory_Success() {
+        when(categoryPersistencePort.saveCategory(category)).thenReturn(category);
+
+        assertDoesNotThrow(() -> categoryHU.updateCategory(category));
+
+        verify(categoryPersistencePort, times(1)).saveCategory(category);
+    }
+
+    @Test
+    void updateCategory_NameTooLong() {
+        Category longNameCategory = new Category(1L, "A".repeat(51), "Description");
+
+        NameIsTooLongException thrown = assertThrows(NameIsTooLongException.class, () -> {
+            categoryHU.updateCategory(longNameCategory);
+        });
+
+        assertNotNull(thrown);
+        verify(categoryPersistencePort, never()).saveCategory(any());
+    }
+
+    @Test
+    void updateCategory_DescriptionTooLong() {
+        Category longDescriptionCategory = new Category(1L, "Category", "A".repeat(121));
+
+        DescriptionIsTooLongException thrown = assertThrows(DescriptionIsTooLongException.class, () -> {
+            categoryHU.updateCategory(longDescriptionCategory);
+        });
+
+        assertNotNull(thrown);
+        verify(categoryPersistencePort, never()).saveCategory(any());
+    }
+
+    @Test
+    void getCategory_Success() {
+        when(categoryPersistencePort.getCategory(category.getName())).thenReturn(category);
+
+        Category foundCategory = categoryHU.getCategory(category.getName());
+
+        assertNotNull(foundCategory);
+        assertEquals(category.getName(), foundCategory.getName());
+        verify(categoryPersistencePort, times(1)).getCategory(category.getName());
+    }
+
 }

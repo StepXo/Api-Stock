@@ -46,7 +46,7 @@ public class BrandJpaAdapter implements BrandPersistencePort {
         }
 
         BrandEntity brandEntity = this.brandRepository.save(
-                brandMapper.toMarcaEntity(brand)
+                brandMapper.toBrandEntity(brand)
         );
         return brandMapper.toBrand(brandEntity);
     }
@@ -60,7 +60,7 @@ public class BrandJpaAdapter implements BrandPersistencePort {
             throw new DescriptionNotFoundException();
         }
         BrandEntity brandEntity = this.brandRepository.save(
-                brandMapper.toMarcaEntity(brand));
+                brandMapper.toBrandEntity(brand));
     };
 
     @Override

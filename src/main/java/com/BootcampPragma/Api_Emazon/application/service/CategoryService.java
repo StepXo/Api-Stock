@@ -30,7 +30,7 @@ public class CategoryService {
     public List<Category> getAllCategories(List<String> names) {
         return names.stream()
                 .map(categoryServicePort::getCategory)
-                .collect(Collectors.toList());
+               .toList();
     }
 
 

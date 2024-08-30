@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +26,7 @@ public class ItemService {
                 .getItemList()
                 .stream()
                 .map(itemRequest::toItemDto)
-                .collect(Collectors.toList()
-                );
+                .toList();
     }
 
     public void saveItem(ItemDto itemDto) {

@@ -27,15 +27,11 @@ public class ItemJpaAdapter implements ItemPersistencePort {
 
     @Override
     public List<Item> getItemList() {
-
-        List<ItemEntity> itemEntityList = itemRepository.findAll();
-        if (itemEntityList.isEmpty()){throw new NoDataFoundException();}
-
         return itemRepository
                 .findAll()
                 .stream()
                 .map(itemMapper::toItem)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -49,7 +45,7 @@ public class ItemJpaAdapter implements ItemPersistencePort {
         return itemRepository.findByCategoryId(id)
                 .stream()
                 .map(itemMapper::toItem)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

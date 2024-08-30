@@ -3,7 +3,6 @@ package com.BootcampPragma.Api_Emazon.application.mapper;
 import com.BootcampPragma.Api_Emazon.application.dto.CategoryDto;
 import com.BootcampPragma.Api_Emazon.application.dto.ItemAuxDto;
 import com.BootcampPragma.Api_Emazon.application.dto.ItemDto;
-import com.BootcampPragma.Api_Emazon.domain.model.Brand;
 import com.BootcampPragma.Api_Emazon.domain.model.Category;
 import com.BootcampPragma.Api_Emazon.domain.model.Item;
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-29T14:10:41-0500",
+    date = "2024-08-29T21:41:23-0500",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.8.jar, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
@@ -50,23 +49,15 @@ public class ItemRequestImpl implements ItemRequest {
             return null;
         }
 
-        List<Category> category = null;
-        Brand brand = null;
-        long id = 0L;
-        String name = null;
-        String description = null;
-        long quantity = 0L;
-        double price = 0.0d;
+        Item item = new Item();
 
-        category = mapToCategories( itemDto.getCategory_id() );
-        brand = toBrand( itemDto.getBrand_id() );
-        id = itemDto.getId();
-        name = itemDto.getName();
-        description = itemDto.getDescription();
-        quantity = itemDto.getQuantity();
-        price = itemDto.getPrice();
-
-        Item item = new Item( id, name, description, quantity, price, category, brand );
+        item.setCategory( mapToCategories( itemDto.getCategory_id() ) );
+        item.setBrand( toBrand( itemDto.getBrand_id() ) );
+        item.setId( itemDto.getId() );
+        item.setName( itemDto.getName() );
+        item.setDescription( itemDto.getDescription() );
+        item.setQuantity( itemDto.getQuantity() );
+        item.setPrice( itemDto.getPrice() );
 
         return item;
     }
