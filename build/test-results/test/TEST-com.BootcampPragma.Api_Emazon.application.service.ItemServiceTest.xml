@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.BootcampPragma.Api_Emazon.application.service.ItemServiceTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2024-08-30T05:56:26" hostname="DESKTOP-GTNTTOM" time="4.297">
+  <properties/>
+  <testcase name="getItem_Success()" classname="com.BootcampPragma.Api_Emazon.application.service.ItemServiceTest" time="4.209"/>
+  <testcase name="testGetItemsOrderedWithVariable()" classname="com.BootcampPragma.Api_Emazon.application.service.ItemServiceTest" time="0.03"/>
+  <testcase name="saveItem_TooManyCategories_ThrowsException()" classname="com.BootcampPragma.Api_Emazon.application.service.ItemServiceTest" time="0.007"/>
+  <testcase name="saveItem_ValidItem_Success()" classname="com.BootcampPragma.Api_Emazon.application.service.ItemServiceTest" time="0.009"/>
+  <testcase name="testGetItemsOrderedWithoutVariable()" classname="com.BootcampPragma.Api_Emazon.application.service.ItemServiceTest" time="0.011"/>
+  <testcase name="getItemList_Success()" classname="com.BootcampPragma.Api_Emazon.application.service.ItemServiceTest" time="0.008"/>
+  <testcase name="saveItem_EmptyCategoryList_ThrowsException()" classname="com.BootcampPragma.Api_Emazon.application.service.ItemServiceTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

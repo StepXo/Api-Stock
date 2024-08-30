@@ -21,6 +21,8 @@ public class Item {
         this.brand = brand;
     }
 
+    public Item() {}
+
     public long getId() {
         return id;
     }

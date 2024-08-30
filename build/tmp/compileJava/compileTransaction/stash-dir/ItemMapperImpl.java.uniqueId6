@@ -1,5 +1,6 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.mapper;
 
+import com.BootcampPragma.Api_Emazon.domain.model.Brand;
 import com.BootcampPragma.Api_Emazon.domain.model.Category;
 import com.BootcampPragma.Api_Emazon.domain.model.Item;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.CategoryEntity;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-30T00:44:12-0500",
+    date = "2024-08-29T22:15:18-0500",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.8.jar, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
@@ -29,15 +30,23 @@ public class ItemMapperImpl implements ItemMapper {
             return null;
         }
 
-        Item item1 = new Item();
+        long id = 0L;
+        String name = null;
+        String description = null;
+        long quantity = 0L;
+        double price = 0.0d;
+        List<Category> category = null;
+        Brand brand = null;
 
-        item1.setId( item.getId() );
-        item1.setName( item.getName() );
-        item1.setDescription( item.getDescription() );
-        item1.setQuantity( item.getQuantity() );
-        item1.setPrice( item.getPrice() );
-        item1.setCategory( categoryEntityListToCategoryList( item.getCategory() ) );
-        item1.setBrand( brandMapper.toBrand( item.getBrand() ) );
+        id = item.getId();
+        name = item.getName();
+        description = item.getDescription();
+        quantity = item.getQuantity();
+        price = item.getPrice();
+        category = categoryEntityListToCategoryList( item.getCategory() );
+        brand = brandMapper.toBrand( item.getBrand() );
+
+        Item item1 = new Item( id, name, description, quantity, price, category, brand );
 
         return item1;
     }
