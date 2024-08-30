@@ -24,8 +24,6 @@ public class ItemHU implements ItemServicePort {
         Set<Long> uniqueCategories = item.getCategory().stream()
                 .map(Category::getId)
                 .collect(Collectors.toSet());
-        System.out.println(uniqueCategories.size());
-        System.out.println(item.getCategory().size());
         if (item.getCategory().size() != uniqueCategories.size()) {
             throw new CategoryListDuplicateExeption();
         }

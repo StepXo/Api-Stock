@@ -4,6 +4,8 @@ import com.BootcampPragma.Api_Emazon.application.dto.CategoryDto;
 import com.BootcampPragma.Api_Emazon.application.dto.ItemAuxDto;
 import com.BootcampPragma.Api_Emazon.application.dto.ItemDto;
 import com.BootcampPragma.Api_Emazon.application.mapper.ItemRequest;
+import com.BootcampPragma.Api_Emazon.application.util.PaginationUtil;
+import com.BootcampPragma.Api_Emazon.application.util.SorterUtil;
 import com.BootcampPragma.Api_Emazon.domain.api.ItemServicePort;
 import com.BootcampPragma.Api_Emazon.domain.model.Item;
 import com.BootcampPragma.Api_Emazon.infrastructure.exeption.CategoryListSizeException;
@@ -12,7 +14,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Collections;
@@ -27,6 +33,12 @@ class ItemServiceTest {
 
     @Mock
     private ItemServicePort itemServicePort;
+
+    @Mock
+    private SorterUtil sorterUtil;
+
+    @Mock
+    private PaginationUtil paginationUtil;
 
     @InjectMocks
     private ItemService itemService;
@@ -55,6 +67,43 @@ class ItemServiceTest {
         verify(itemServicePort, times(1)).getItemList();
         verify(itemRequest, times(1)).toItemDto(item);
     }
+    @Test
+    void testGetItemsOrderedWithoutVariable() {
+
+        List<Item> itemList = new ArrayList<>(Collections.singletonList(item));
+        List<ItemAuxDto> itemAuxDtoList = new ArrayList<>(Collections.singletonList(itemAuxDto));
+
+        when(itemServicePort.getItemList()).thenReturn(itemList);
+        when(itemRequest.toItemDto(item)).thenReturn(itemAuxDto);
+        when(sorterUtil.getSortedItems(eq("asc"), anyList())).thenReturn(itemAuxDtoList);
+
+        Page<ItemAuxDto> pagedResult = new PageImpl<>(itemAuxDtoList, PageRequest.of(0, 10), 1);
+        when(paginationUtil.getItemsPagination(eq("asc"), eq(0), eq(10), anyList())).thenReturn(pagedResult);
+        Page<ItemAuxDto> result = itemService.getItemsOrdered("asc", 0, 10);
+
+        assertNotNull(result);
+        assertEquals(1, result.getTotalElements());
+        assertEquals(itemAuxDto, result.getContent().get(0));
+    }
+
+    @Test
+    void testGetItemsOrderedWithVariable() {
+        List<Item> itemList = Collections.singletonList(item);
+        List<ItemAuxDto> itemAuxDtoList = Collections.singletonList(itemAuxDto);
+
+        when(itemServicePort.getItemList()).thenReturn(itemList);
+        when(itemRequest.toItemDto(any(Item.class))).thenReturn(itemAuxDto);
+        when(sorterUtil.getSortedItems(eq("asc"), eq("brand"), anyList())).thenReturn(itemAuxDtoList);
+
+        Page<ItemAuxDto> pagedResult = new PageImpl<>(itemAuxDtoList, PageRequest.of(0, 10), 1);
+        when(paginationUtil.getItemsPagination(eq("asc"), eq(0), eq(10), anyList())).thenReturn(pagedResult);
+        Page<ItemAuxDto> result = itemService.getItemsOrdered("asc", "brand", 0, 10);
+
+        assertNotNull(result);
+        assertEquals(1, result.getTotalElements());
+        assertEquals(itemAuxDto, result.getContent().get(0));
+    }
+
 
     @Test
     void saveItem_ValidItem_Success() {

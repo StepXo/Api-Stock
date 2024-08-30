@@ -22,7 +22,7 @@ public class CategoryController {
     //@GetMapping
 
     @GetMapping("/{order}")
-    public Page<CategoryDto> getCategories(
+    private Page<CategoryDto> getCategories(
             @PathVariable String order,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
