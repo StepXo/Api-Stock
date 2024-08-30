@@ -57,7 +57,7 @@ public class BeanConfiguration {
 
     @Bean
     public ItemPersistencePort itemPersistencePort(){
-        return new ItemJpaAdapter(itemRepository, itemMapper);
+        return new ItemJpaAdapter(itemRepository, itemMapper,categoryRepository,brandRepository);
     }
     @Bean
     public ItemServicePort itemServicePort(){

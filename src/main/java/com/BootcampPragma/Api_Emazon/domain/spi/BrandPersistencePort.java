@@ -9,6 +9,8 @@ public interface BrandPersistencePort {
     Brand saveBrand(Brand brand);
 
     List<Brand> getAllBrands();
+    public Brand getBrand(String name);
+    public Brand getBrand(Long id);
 
     void updateBrand(Brand brand);
 

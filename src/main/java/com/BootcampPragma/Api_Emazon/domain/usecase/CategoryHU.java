@@ -43,8 +43,14 @@ public class CategoryHU implements CategoryServicePort {
     }
 
     @Override
+    public Category getCategory(String name){
+        return categoryPersistencePort.getCategory(name);
+    }
+
+    @Override
     public void deleteCategory(String categoryId) {
 
     }
+
 
 }

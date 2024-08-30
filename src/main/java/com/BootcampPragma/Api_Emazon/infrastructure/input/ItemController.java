@@ -1,5 +1,6 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.input;
 
+import com.BootcampPragma.Api_Emazon.application.dto.ItemAuxDto;
 import com.BootcampPragma.Api_Emazon.application.dto.ItemDto;
 import com.BootcampPragma.Api_Emazon.application.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/article")
+@RequestMapping("/item")
 @RequiredArgsConstructor
 public class ItemController {
 
@@ -16,13 +17,13 @@ public class ItemController {
 
 
     @GetMapping
-    private List<ItemDto> getItemList(){
+    private List<ItemAuxDto> getItemList(){
         return itemService.getItemList();
     }
 
     @PostMapping
-    private void saveItem(@RequestBody ItemDto article){
-        itemService.saveItem(article);
+    private void saveItem(@RequestBody ItemDto itemDto){
+        itemService.saveItem(itemDto);
     }
 
 }

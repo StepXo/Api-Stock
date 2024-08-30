@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.BootcampPragma.Api_Emazon.domain.usecase.BrandHUTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-08-23T03:44:14" hostname="DESKTOP-GTNTTOM" time="0.789">
-  <properties/>
-  <testcase name="testSaveBrand_DescriptionTooLong_Negative()" classname="com.BootcampPragma.Api_Emazon.domain.usecase.BrandHUTest" time="0.762"/>
-  <testcase name="testSaveBrand_Positive()" classname="com.BootcampPragma.Api_Emazon.domain.usecase.BrandHUTest" time="0.018"/>
-  <testcase name="testSaveBrand_NameTooLong_Negative()" classname="com.BootcampPragma.Api_Emazon.domain.usecase.BrandHUTest" time="0.006"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

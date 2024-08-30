@@ -1,12 +1,11 @@
 package com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -14,15 +13,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ItemEntity {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @Id
     private long id;
+
     private String name;
     private String description;
     private long quantity;
     private double price;
-    private Long id_category;
-    private Long id_brand;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "article_category",
+            joinColumns = @JoinColumn(name = "item_id"),
+    inverseJoinColumns = @JoinColumn(name = "category_id"))
+    List<CategoryEntity> category;
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "brand")
+    private BrandEntity brand;
 
 }

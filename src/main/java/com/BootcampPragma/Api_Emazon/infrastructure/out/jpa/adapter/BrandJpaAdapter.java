@@ -3,17 +3,14 @@ package com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.adapter;
 import com.BootcampPragma.Api_Emazon.domain.model.Brand;
 import com.BootcampPragma.Api_Emazon.domain.spi.BrandPersistencePort;
 import com.BootcampPragma.Api_Emazon.infrastructure.exeption.BrandAlreadyExistsException;
+import com.BootcampPragma.Api_Emazon.infrastructure.exeption.BrandNotFoundException;
 import com.BootcampPragma.Api_Emazon.infrastructure.exeption.DescriptionNotFoundException;
-import com.BootcampPragma.Api_Emazon.infrastructure.exeption.NoDataFoundException;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.BrandEntity;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.mapper.BrandMapper;
 import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.repository.BrandRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 
 @RequiredArgsConstructor
 public class BrandJpaAdapter implements BrandPersistencePort {
@@ -23,16 +20,11 @@ public class BrandJpaAdapter implements BrandPersistencePort {
 
     @Override
     public List<Brand> getAllBrands() {
-
-        List<BrandEntity> brandEntityList = brandRepository.findAll();
-        if (brandEntityList.isEmpty()){throw new NoDataFoundException();}
-
         return brandRepository
                 .findAll()
                 .stream()
                 .map(brandMapper::toBrand)
-                .collect(Collectors.toList()
-                );
+                .toList();
     }
 
     @Override
@@ -45,9 +37,18 @@ public class BrandJpaAdapter implements BrandPersistencePort {
         }
 
         BrandEntity brandEntity = this.brandRepository.save(
-                brandMapper.toMarcaEntity(brand)
+                brandMapper.toBrandEntity(brand)
         );
         return brandMapper.toBrand(brandEntity);
+    }
+    @Override
+    public Brand getBrand(String name) {
+        return brandMapper.toBrand(brandRepository.findByName(name)
+                .orElseThrow(BrandNotFoundException::new));
+    }
+    public Brand getBrand(Long id) {
+        return brandMapper.toBrand(brandRepository.findById(id)
+                .orElseThrow(BrandNotFoundException::new));
     }
 
     @Override
@@ -58,8 +59,8 @@ public class BrandJpaAdapter implements BrandPersistencePort {
         } else if (brand.getDescription().isEmpty()){
             throw new DescriptionNotFoundException();
         }
-        BrandEntity brandEntity = this.brandRepository.save(
-                brandMapper.toMarcaEntity(brand));
+        this.brandRepository.save(
+                brandMapper.toBrandEntity(brand));
     };
 
     @Override

@@ -1,7 +1,6 @@
 package com.BootcampPragma.Api_Emazon.domain.spi;
 
 import com.BootcampPragma.Api_Emazon.domain.model.Category;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -10,6 +9,8 @@ public interface CategoryPersistencePort {
 
     void updateCategory(Category category);
 
+    Category getCategory(String name);
+    Category getCategory(Long id);
     List<Category> getAllCategories();
 
     void deleteCategory(String categoryId);

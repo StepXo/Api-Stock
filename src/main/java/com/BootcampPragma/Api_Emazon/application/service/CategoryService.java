@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -25,6 +27,12 @@ public class CategoryService {
         Category category = categoryRequest.toCategory(categoryDto);
         categoryServicePort.saveCategory(category);
     }
+    public List<Category> getAllCategories(List<String> names) {
+        return names.stream()
+                .map(categoryServicePort::getCategory)
+               .toList();
+    }
+
 
     public Page<CategoryDto> getCategoriesOrderedByName(String order, int page, int size) {
         Sort sort = "asc".equalsIgnoreCase(order)
@@ -51,4 +59,11 @@ public class CategoryService {
 
         return new PageImpl<>(sortedCategoryDto.subList(start, end), pageable, sortedCategoryDto.size());
     }
+
+    public CategoryDto getCategory(String name){
+        Category category = categoryServicePort.getCategory(name);
+        return categoryRequest.toCategoryDto(category);
+    }
+
+
 }

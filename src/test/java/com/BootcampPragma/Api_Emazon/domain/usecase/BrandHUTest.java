@@ -10,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -21,37 +23,103 @@ public class BrandHUTest {
     @InjectMocks
     private BrandHU brandHU;
 
+    private Brand brand;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        brand = new Brand(1L, "Test Brand", "Description");
     }
 
     @Test
-    void testSaveBrand_Positive() {
-        Brand brand = new Brand(1, "Books", "Books Brand");
-
+    void saveBrand_Success() {
         when(brandPersistencePort.saveBrand(brand)).thenReturn(brand);
 
-        Brand result = brandHU.saveBrand(brand);
+        Brand savedBrand = brandHU.saveBrand(brand);
 
-        assertNotNull(result);
-        assertEquals("Books", result.getName());
+        assertNotNull(savedBrand);
+        assertEquals(brand.getName(), savedBrand.getName());
         verify(brandPersistencePort, times(1)).saveBrand(brand);
     }
 
     @Test
-    void testSaveBrand_NameTooLong_Negative() {
-        Brand brand = new Brand(1, "This is a very long brand name that exceeds fifty characters", "Books Brand");
+    void saveBrand_NameTooLong() {
+        Brand longNameBrand = new Brand(1L, "A".repeat(51), "Description");
 
-        assertThrows(NameIsTooLongException.class, () -> brandHU.saveBrand(brand));
+        NameIsTooLongException thrown = assertThrows(NameIsTooLongException.class, () -> {
+            brandHU.saveBrand(longNameBrand);
+        });
+
+        assertNotNull(thrown);
         verify(brandPersistencePort, never()).saveBrand(any());
     }
 
     @Test
-    void testSaveBrand_DescriptionTooLong_Negative() {
-        Brand brand = new Brand(1, "Books", "This is a very long description that exceeds ninety characters, and it should throw an exception, and in brand needs to be even longer");
+    void saveBrand_DescriptionTooLong() {
+        Brand longDescriptionBrand = new Brand(1L, "Brand", "A".repeat(121));
 
-        assertThrows(DescriptionIsTooLongException.class, () -> brandHU.saveBrand(brand));
+        DescriptionIsTooLongException thrown = assertThrows(DescriptionIsTooLongException.class, () -> {
+            brandHU.saveBrand(longDescriptionBrand);
+        });
+
+        assertNotNull(thrown);
         verify(brandPersistencePort, never()).saveBrand(any());
     }
+
+    @Test
+    void getAllBrands() {
+        when(brandPersistencePort.getAllBrands()).thenReturn(List.of(brand));
+
+        List<Brand> brands = brandHU.getAllBrands();
+
+        assertNotNull(brands);
+        assertEquals(1, brands.size());
+        assertEquals(brand.getName(), brands.get(0).getName());
+        verify(brandPersistencePort, times(1)).getAllBrands();
+    }
+
+    @Test
+    void updateBrand_Success() {
+        when(brandPersistencePort.saveBrand(brand)).thenReturn(brand);
+
+        assertDoesNotThrow(() -> brandHU.updateBrand(brand));
+
+        verify(brandPersistencePort, times(1)).saveBrand(brand);
+    }
+
+    @Test
+    void updateBrand_NameTooLong() {
+        Brand longNameBrand = new Brand(1L, "A".repeat(51), "Description");
+
+        NameIsTooLongException thrown = assertThrows(NameIsTooLongException.class, () -> {
+            brandHU.updateBrand(longNameBrand);
+        });
+
+        assertNotNull(thrown);
+        verify(brandPersistencePort, never()).saveBrand(any());
+    }
+
+    @Test
+    void updateBrand_DescriptionTooLong() {
+        Brand longDescriptionBrand = new Brand(1L, "Brand", "A".repeat(121));
+
+        DescriptionIsTooLongException thrown = assertThrows(DescriptionIsTooLongException.class, () -> {
+            brandHU.updateBrand(longDescriptionBrand);
+        });
+
+        assertNotNull(thrown);
+        verify(brandPersistencePort, never()).saveBrand(any());
+    }
+
+    @Test
+    void getBrand_Success() {
+        when(brandPersistencePort.getBrand(brand.getName())).thenReturn(brand);
+
+        Brand foundBrand = brandHU.getBrand(brand.getName());
+
+        assertNotNull(foundBrand);
+        assertEquals(brand.getName(), foundBrand.getName());
+        verify(brandPersistencePort, times(1)).getBrand(brand.getName());
+    }
+
 }

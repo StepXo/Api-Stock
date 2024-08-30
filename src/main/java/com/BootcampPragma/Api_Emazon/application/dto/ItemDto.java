@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,7 +17,7 @@ public class ItemDto {
     private String description;
     private long quantity;
     private double price;
-    private Long id_category;
-    private Long id_brand;
+    private List<Long> category_id;
+    private Long brand_id;
 
 }

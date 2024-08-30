@@ -5,7 +5,7 @@ import com.BootcampPragma.Api_Emazon.infrastructure.out.jpa.entity.ItemEntity;
 import org.mapstruct.Mapper;
 
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {CategoryMapper.class, BrandMapper.class})
 public interface ItemMapper {
     Item toItem(ItemEntity item);
     ItemEntity toItemEntity(Item item);

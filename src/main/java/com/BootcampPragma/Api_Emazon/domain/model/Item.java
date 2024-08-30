@@ -1,38 +1,24 @@
 package com.BootcampPragma.Api_Emazon.domain.model;
 
+import java.util.List;
+
 public class Item {
     private long id;
     private String name;
     private String description;
-    private Long quantity;
+    private long quantity;
     private double price;
-    private Long id_category;
-    private Long id_brand;
+    private List<Category> category;
+    private Brand brand;
 
-    public Item(long id, String name, String description, Long quantity, double price, Long id_category, Long id_brand) {
+    public Item(long id, String name, String description, long quantity, double price, List<Category> category, Brand brand) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.quantity = quantity;
         this.price = price;
-        this.id_category = id_category;
-        this.id_brand = id_brand;
-    }
-
-    public Long getQuantity() {
-        return quantity;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
+        this.category = category;
+        this.brand = brand;
     }
 
     public long getId() {
@@ -47,9 +33,21 @@ public class Item {
         return description;
     }
 
-    public Long getId_category() {return id_category;}
+    public long getQuantity() {
+        return quantity;
+    }
 
-    public Long getId_brand() {return id_brand;}
+    public double getPrice() {
+        return price;
+    }
+
+    public List<Category> getCategory() {
+        return category;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
 
     public void setId(long id) {
         this.id = id;
@@ -63,7 +61,19 @@ public class Item {
         this.description = description;
     }
 
-    public void setId_category(Long id_category) {this.id_category = id_category;}
+    public void setQuantity(long quantity) {
+        this.quantity = quantity;
+    }
 
-    public void setId_brand(Long id_brand) {this.id_brand = id_brand;}
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setCategory(List<Category> category) {
+        this.category = category;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
 }
