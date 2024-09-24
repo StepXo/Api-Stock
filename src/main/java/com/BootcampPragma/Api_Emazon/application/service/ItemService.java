@@ -59,7 +59,7 @@ public class ItemService {
     
 
     public void saveItem(ItemDto itemDto) {
-        if (itemDto.getCategory_id() == null || itemDto.getCategory_id().isEmpty() || itemDto.getCategory_id().size() > 3) {
+        if (itemDto.getCategoryId() == null || itemDto.getCategoryId().isEmpty() || itemDto.getCategoryId().size() > 3) {
             throw new CategoryListSizeException();
         }
         Item item = itemRequest.toItem(itemDto);

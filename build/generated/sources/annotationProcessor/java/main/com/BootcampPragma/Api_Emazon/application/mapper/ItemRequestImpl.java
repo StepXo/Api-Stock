@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-30T00:44:12-0500",
+    date = "2024-09-23T16:24:03-0500",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.8.jar, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
@@ -51,8 +51,8 @@ public class ItemRequestImpl implements ItemRequest {
 
         Item item = new Item();
 
-        item.setCategory( mapToCategories( itemDto.getCategory_id() ) );
-        item.setBrand( toBrand( itemDto.getBrand_id() ) );
+        item.setCategory( mapToCategories( itemDto.getCategoryId() ) );
+        item.setBrand( toBrand( itemDto.getBrandId() ) );
         item.setId( itemDto.getId() );
         item.setName( itemDto.getName() );
         item.setDescription( itemDto.getDescription() );

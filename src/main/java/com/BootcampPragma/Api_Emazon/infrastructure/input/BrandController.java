@@ -4,6 +4,7 @@ import com.BootcampPragma.Api_Emazon.application.dto.BrandDto;
 import com.BootcampPragma.Api_Emazon.application.service.BrandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class BrandController {
 
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     private void saveBrand(@RequestBody BrandDto brand){
          brandService.saveBrand(brand);
     }

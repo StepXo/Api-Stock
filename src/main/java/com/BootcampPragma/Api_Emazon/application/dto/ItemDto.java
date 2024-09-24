@@ -17,7 +17,7 @@ public class ItemDto {
     private String description;
     private long quantity;
     private double price;
-    private List<Long> category_id;
-    private Long brand_id;
+    private List<Long> categoryId;
+    private Long brandId;
 
 }

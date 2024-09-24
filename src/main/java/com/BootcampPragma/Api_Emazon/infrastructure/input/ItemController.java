@@ -6,6 +6,7 @@ import com.BootcampPragma.Api_Emazon.application.dto.ItemDto;
 import com.BootcampPragma.Api_Emazon.application.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class ItemController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     private void saveItem(@RequestBody ItemDto itemDto){
         itemService.saveItem(itemDto);
     }

@@ -4,6 +4,7 @@ import com.BootcampPragma.Api_Emazon.application.dto.CategoryDto;
 import com.BootcampPragma.Api_Emazon.application.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -15,6 +16,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     private void saveCategory(@RequestBody CategoryDto category){
         categoryService.saveCategory(category);
     }

@@ -4,9 +4,7 @@ import com.BootcampPragma.Api_Emazon.domain.api.BrandServicePort;
 import com.BootcampPragma.Api_Emazon.domain.exeption.DescriptionIsTooLongException;
 import com.BootcampPragma.Api_Emazon.domain.exeption.NameIsTooLongException;
 import com.BootcampPragma.Api_Emazon.domain.model.Brand;
-import com.BootcampPragma.Api_Emazon.domain.model.Category;
 import com.BootcampPragma.Api_Emazon.domain.spi.BrandPersistencePort;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 

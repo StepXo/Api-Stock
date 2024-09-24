@@ -19,17 +19,17 @@ public interface ItemRequest {
     ItemAuxDto toItemDto(Item item);
 
     @Mappings({
-            @Mapping(source = "category_id",target = "category",qualifiedByName = "map_to_categories"),
-            @Mapping(source = "brand_id",target = "brand",qualifiedByName = "to_brand")
+            @Mapping(source = "categoryId",target = "category",qualifiedByName = "map_to_categories"),
+            @Mapping(source = "brandId",target = "brand",qualifiedByName = "to_brand")
     })
     Item toItem(ItemDto itemDto);
 
     @Named("map_to_categories")
-    default List<Category> mapToCategories (List<Long> category_ids){
+    default List<Category> mapToCategories (List<Long> categoryIds){
         List<Category> categories = new ArrayList<>();
 
-        if (!category_ids.isEmpty()){
-            for (Long category_Id : category_ids){
+        if (!categoryIds.isEmpty()){
+            for (Long category_Id : categoryIds){
                 categories.add(new Category(category_Id,"",""));
             }
         }
@@ -37,11 +37,11 @@ public interface ItemRequest {
     }
 
     @Named("to_brand")
-    default Brand toBrand(Long brand_id){
-        if (brand_id == null  ) {
+    default Brand toBrand(Long brandId){
+        if (brandId == null  ) {
             return null;
         } else{
-            return new Brand(brand_id, "", "");
+            return new Brand(brandId, "", "");
         }
     }
 
