@@ -1,6 +1,5 @@
 package com.BootcampPragma.Api_Stock.infrastructure.input;
 
-import com.BootcampPragma.Api_Stock.application.dto.IncreaseStockDto;
 import com.BootcampPragma.Api_Stock.application.dto.ItemAuxDto;
 import com.BootcampPragma.Api_Stock.application.dto.ItemDto;
 import com.BootcampPragma.Api_Stock.application.service.ItemService;
@@ -49,8 +48,8 @@ public class ItemController {
 
     @PostMapping(InfraConstants.SUPPLY_PATH)
     @PreAuthorize(InfraConstants.HAS_WAREHOUSE_AUX_OR_ROLE_ADMIN)
-    private ItemAuxDto increaseStock(@RequestBody IncreaseStockDto increaseStockDto) {
-        return itemService.increaseStock(increaseStockDto.getArticleId(), increaseStockDto.getQuantity());
+    private ItemAuxDto increaseStock(@RequestBody ItemAuxDto increaseStockDto) {
+        return itemService.increaseStock(increaseStockDto.getId(),(int) increaseStockDto.getQuantity());
     }
 
 }

@@ -72,6 +72,7 @@ public class ItemHU implements ItemServicePort {
 
             item.setQuantity(item.getQuantity() + quantity);
 
+
             try {
                 return itemPersistencePort.updateItem(item);
             } catch (RuntimeException e) {

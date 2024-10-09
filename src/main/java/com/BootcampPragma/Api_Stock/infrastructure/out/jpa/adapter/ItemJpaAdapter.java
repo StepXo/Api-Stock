@@ -60,10 +60,8 @@ public class ItemJpaAdapter implements ItemPersistencePort {
 
     @Override
     public Item updateItem(Item item){
-        ItemEntity itemEntity = itemRepository.findById(item.getId())
-                .orElseThrow(ItemNotFoundException::new);
 
-        return itemMapper.toItem(itemRepository.save(itemEntity));
+        return itemMapper.toItem(itemRepository.save(itemMapper.toItemEntity(item)));
     }
 
     @Override
