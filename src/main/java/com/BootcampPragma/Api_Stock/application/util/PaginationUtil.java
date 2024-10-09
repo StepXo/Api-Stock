@@ -16,9 +16,9 @@ import java.util.List;
 public class PaginationUtil {
 
     public Page<ItemAuxDto> getItemsPagination(String order, int page, int size, List<ItemAuxDto> sortedItemDto){
-        Sort sort = "asc".equalsIgnoreCase(order)
-                ? Sort.by("name").descending()
-                : Sort.by("name").ascending();
+        Sort sort = AppConstant.ORDER.equalsIgnoreCase(order)
+                ? Sort.by(AppConstant.NAME).descending()
+                : Sort.by(AppConstant.NAME).ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
         int start = (int) pageable.getOffset();
         int end = Math.min(start + pageable.getPageSize(), sortedItemDto.size());
@@ -27,9 +27,9 @@ public class PaginationUtil {
     }
 
     public Page<CategoryDto> getCategoriesPagination(String order, int page, int size, List<CategoryDto> sortedCategoryDto) {
-        Sort sort = "asc".equalsIgnoreCase(order)
-                ? Sort.by("name").descending()
-                : Sort.by("name").ascending();
+        Sort sort = AppConstant.ORDER.equalsIgnoreCase(order)
+                ? Sort.by(AppConstant.NAME).descending()
+                : Sort.by(AppConstant.NAME).ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
 
         int start = (int) pageable.getOffset();
@@ -39,9 +39,9 @@ public class PaginationUtil {
     }
     public Page<BrandDto> getBrandsPagination(String order, int page, int size, List<BrandDto> sortedBrandDto) {
 
-        Sort sort = "asc".equalsIgnoreCase(order)
-                ? Sort.by("name").descending()
-                : Sort.by("name").ascending();
+        Sort sort = AppConstant.ORDER.equalsIgnoreCase(order)
+                ? Sort.by(AppConstant.NAME).descending()
+                : Sort.by(AppConstant.NAME).ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
         int start = (int) pageable.getOffset();
         int end = Math.min(start + pageable.getPageSize(), sortedBrandDto.size());

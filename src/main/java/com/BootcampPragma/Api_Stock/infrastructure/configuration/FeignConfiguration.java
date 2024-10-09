@@ -1,5 +1,6 @@
 package com.BootcampPragma.Api_Stock.infrastructure.configuration;
 
+import com.BootcampPragma.Api_Stock.infrastructure.Utils.InfraConstants;
 import com.BootcampPragma.Api_Stock.infrastructure.Utils.UserExtractor;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
@@ -16,8 +17,8 @@ public class FeignConfiguration {
         return new RequestInterceptor() {
             @Override
             public void apply(RequestTemplate template) {
-                String token = "Bearer " + userExtractor.getTokenFromRequest();
-                template.header("Authorization", token);
+                String token = InfraConstants.BEARER + userExtractor.getTokenFromRequest();
+                template.header(InfraConstants.AUTHORIZATION, token);
             }
         };
     }

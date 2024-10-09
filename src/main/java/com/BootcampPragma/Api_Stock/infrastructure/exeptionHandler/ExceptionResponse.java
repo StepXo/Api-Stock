@@ -11,9 +11,10 @@ public enum ExceptionResponse {
     MARCA_NOT_FOUND("No brand was found with that name"),
     ITEM_NOT_FOUND("No item was found with that name"),
     DESCRIPTION_NOT_FOUND("No description was found"),
+    NAME_NOT_FOUND("No name was found"),
     NO_DATA_FOUND("No data found for the requested petition"),
 
-    NAME_IS_TOO_LONG("The description is too long for this request"),
+    NAME_IS_TOO_LONG("The Name is too long for this request"),
     DESCRIPTION_IS_TOO_LONG("The description is too long for this request"),
     CATEGORY_SIZE_LIST("The article must have 1 to 3 categories"),
     ACTUALIZATION_ITEM("There's a problem with the actualization"),

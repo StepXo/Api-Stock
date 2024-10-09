@@ -17,7 +17,7 @@ public class SorterUtil {
 
     public List<BrandDto> getSortedBrands(String order,List<BrandDto> brandDto) {
 
-        Comparator<BrandDto> comparator = "asc".equalsIgnoreCase(order)
+        Comparator<BrandDto> comparator = AppConstant.ORDER.equalsIgnoreCase(order)
                 ? Comparator.comparing(BrandDto::getName)
                 : Comparator.comparing(BrandDto::getName).reversed();
 
@@ -28,7 +28,7 @@ public class SorterUtil {
 
     public List<CategoryDto> getSortedCategories(String order, List<CategoryDto> categoryDto) {
 
-        Comparator<CategoryDto> comparator = "asc".equalsIgnoreCase(order)
+        Comparator<CategoryDto> comparator = AppConstant.ORDER.equalsIgnoreCase(order)
                 ? Comparator.comparing(CategoryDto::getName)
                 : Comparator.comparing(CategoryDto::getName).reversed();
 
@@ -39,7 +39,7 @@ public class SorterUtil {
 
     public List<ItemAuxDto> getSortedItems(String order,List<ItemAuxDto> itemAuxDto) {
 
-        Comparator<ItemAuxDto> comparator = "asc".equalsIgnoreCase(order)
+        Comparator<ItemAuxDto> comparator = AppConstant.ORDER.equalsIgnoreCase(order)
                 ? Comparator.comparing(ItemAuxDto::getName)
                 : Comparator.comparing(ItemAuxDto::getName).reversed();
 
@@ -51,21 +51,21 @@ public class SorterUtil {
     public List<ItemAuxDto> getSortedItems(String order, String attribute,List<ItemAuxDto> itemAuxDtoList) {
 
         Comparator<ItemAuxDto> comparator = switch (attribute.toLowerCase()) {
-            case "brand" -> "asc".equalsIgnoreCase(order)
+            case AppConstant.BRAND -> AppConstant.ORDER.equalsIgnoreCase(order)
                     ? Comparator.comparing((ItemAuxDto item) -> item.getBrand().getName())
                     : Comparator.comparing((ItemAuxDto item) -> item.getBrand().getName()).reversed();
-            case "category" -> {
+            case AppConstant.CATEGORY -> {
                 itemAuxDtoList.forEach(item ->
                         item.setCategory(getSortedCategories(order, item.getCategory()))
                 );
-                yield "asc".equalsIgnoreCase(order)
+                yield AppConstant.ORDER.equalsIgnoreCase(order)
                         ? Comparator.comparing((ItemAuxDto item) -> item.getCategory().get(0).getName())
                         : Comparator.comparing((ItemAuxDto item) -> item.getCategory().get(0).getName()).reversed();
             }
-            default -> throw new IllegalArgumentException("Invalid attribute: " + attribute);
+            default -> throw new IllegalArgumentException(AppConstant.ERROR + attribute);
         };
 
-        List<ItemAuxDto> filteredItems = "brand".equalsIgnoreCase(attribute)
+        List<ItemAuxDto> filteredItems = AppConstant.BRAND.equalsIgnoreCase(attribute)
                 ? itemAuxDtoList.stream()
                 .filter(item -> item.getBrand() != null)
                 .toList()

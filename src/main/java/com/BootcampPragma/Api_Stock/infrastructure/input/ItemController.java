@@ -4,6 +4,7 @@ import com.BootcampPragma.Api_Stock.application.dto.IncreaseStockDto;
 import com.BootcampPragma.Api_Stock.application.dto.ItemAuxDto;
 import com.BootcampPragma.Api_Stock.application.dto.ItemDto;
 import com.BootcampPragma.Api_Stock.application.service.ItemService;
+import com.BootcampPragma.Api_Stock.infrastructure.Utils.InfraConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/item")
+@RequestMapping(InfraConstants.ITEM_PATH)
 @RequiredArgsConstructor
 public class ItemController {
 
@@ -24,30 +25,30 @@ public class ItemController {
         return itemService.getItemList();
     }
 
-    @GetMapping("/{order}")
+    @GetMapping(InfraConstants.ORDER)
     private Page<ItemAuxDto> getCategories(
             @PathVariable String order,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = InfraConstants.ZERO) int page,
+            @RequestParam(defaultValue = InfraConstants.TEN) int size) {
         return itemService.getItemsOrdered(order, page, size);
     }
-    @GetMapping("/{order}/{variable}")
+    @GetMapping(InfraConstants.TYPE_ORDER)
     private Page<ItemAuxDto> getCategories(
             @PathVariable String order,
             @PathVariable String variable,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = InfraConstants.ZERO) int page,
+            @RequestParam(defaultValue = InfraConstants.TEN) int size) {
         return itemService.getItemsOrdered(order,variable, page, size);
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize(InfraConstants.HAS_ROLE_ADMIN)
     private void saveItem(@RequestBody ItemDto itemDto){
         itemService.saveItem(itemDto);
     }
 
-    @PostMapping("/increase")
-    @PreAuthorize("hasRole('WAREHOUSE_AUX') or hasRole('ADMIN')")
+    @PostMapping(InfraConstants.SUPPLY_PATH)
+    @PreAuthorize(InfraConstants.HAS_WAREHOUSE_AUX_OR_ROLE_ADMIN)
     private ItemAuxDto increaseStock(@RequestBody IncreaseStockDto increaseStockDto) {
         return itemService.increaseStock(increaseStockDto.getArticleId(), increaseStockDto.getQuantity());
     }

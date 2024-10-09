@@ -1,21 +1,16 @@
 package com.BootcampPragma.Api_Stock.infrastructure.out.jpa.adapter;
 
-import com.BootcampPragma.Api_Stock.domain.exeption.BrandNotFoundException;
-import com.BootcampPragma.Api_Stock.domain.exeption.CategoryNotFoundException;
-import com.BootcampPragma.Api_Stock.domain.exeption.ItemAlreadyExistsException;
+
 import com.BootcampPragma.Api_Stock.domain.exeption.ItemNotFoundException;
-import com.BootcampPragma.Api_Stock.domain.model.Category;
 import com.BootcampPragma.Api_Stock.domain.model.Item;
 import com.BootcampPragma.Api_Stock.domain.spi.ItemPersistencePort;
 import com.BootcampPragma.Api_Stock.infrastructure.out.jpa.entity.ItemEntity;
 import com.BootcampPragma.Api_Stock.infrastructure.out.jpa.mapper.ItemMapper;
-import com.BootcampPragma.Api_Stock.infrastructure.out.jpa.repository.BrandRepository;
-import com.BootcampPragma.Api_Stock.infrastructure.out.jpa.repository.CategoryRepository;
 import com.BootcampPragma.Api_Stock.infrastructure.out.jpa.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.Optional;
+
 
 
 @RequiredArgsConstructor
@@ -23,8 +18,6 @@ public class ItemJpaAdapter implements ItemPersistencePort {
 
     private final ItemRepository itemRepository;
     private final ItemMapper itemMapper;
-    private final CategoryRepository categoryRepository;
-    private final BrandRepository brandRepository;
 
 
 
@@ -39,19 +32,16 @@ public class ItemJpaAdapter implements ItemPersistencePort {
 
     @Override
     public Item getItem(String name) {
-        return itemMapper.toItem(itemRepository.findByName(name)
-                .orElseThrow(ItemNotFoundException::new));
+        return itemRepository.findByName(name)
+                .map(itemMapper::toItem)
+                .orElse(null);
     }
 
     @Override
     public Item getItem(long id) {
-        Optional<ItemEntity> item = itemRepository.findById(id);
-        if (item.isEmpty()) {
-            throw new ItemNotFoundException();
-        }
-        ItemEntity entity = item.get();
-
-        return itemMapper.toItem(entity) ;
+        return itemRepository.findById(id)
+                .map(itemMapper::toItem)
+                .orElse(null);
     }
 
     @Override
@@ -64,17 +54,6 @@ public class ItemJpaAdapter implements ItemPersistencePort {
 
     @Override
     public Item saveItem(Item item) {
-        if (itemRepository.findByName(item.getName()).isPresent()) {
-            throw new ItemAlreadyExistsException();
-        }
-        for (Category category : item.getCategory()) {
-            if (categoryRepository.findById(category.getId()).isEmpty()) {
-                throw new CategoryNotFoundException();
-            }
-        }
-        if (item.getBrand() != null && brandRepository.findById(item.getBrand().getId()).isEmpty()) {
-            throw new BrandNotFoundException();
-        }
         ItemEntity itemEntity = itemRepository.save(itemMapper.toItemEntity(item));
         return itemMapper.toItem(itemEntity);
     }

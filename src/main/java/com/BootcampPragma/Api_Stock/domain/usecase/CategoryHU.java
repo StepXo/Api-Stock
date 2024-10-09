@@ -1,9 +1,8 @@
 package com.BootcampPragma.Api_Stock.domain.usecase;
 
+import com.BootcampPragma.Api_Stock.domain.Utils.Validation;
 import com.BootcampPragma.Api_Stock.domain.api.CategoryServicePort;
 import com.BootcampPragma.Api_Stock.domain.model.Category;
-import com.BootcampPragma.Api_Stock.domain.exeption.DescriptionIsTooLongException;
-import com.BootcampPragma.Api_Stock.domain.exeption.NameIsTooLongException;
 import com.BootcampPragma.Api_Stock.domain.spi.CategoryPersistencePort;
 
 import java.util.List;
@@ -19,11 +18,9 @@ public class CategoryHU implements CategoryServicePort {
     @Override
     public Category saveCategory(Category category) {
 
-        if (category.getName().length() > 50) {
-            throw new NameIsTooLongException();
-        } else if (category.getDescription().length() > 90) {
-            throw new DescriptionIsTooLongException();
-        }
+        Category repository = categoryPersistencePort.getCategory(category.getName());
+        Validation.validate(category,repository);
+
         return categoryPersistencePort.saveCategory(category);
     }
 
@@ -34,11 +31,10 @@ public class CategoryHU implements CategoryServicePort {
 
     @Override
     public void updateCategory(Category category) {
-        if (category.getName().length() > 50) {
-            throw new NameIsTooLongException();
-        } else if (category.getDescription().length() > 90) {
-            throw new DescriptionIsTooLongException();
-        }
+
+        Category repository = categoryPersistencePort.getCategory(category.getName());
+        Validation.validate(category,repository);
+
         categoryPersistencePort.saveCategory(category);
     }
 
