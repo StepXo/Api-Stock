@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class IncreaseStockDto {
-    private long articleId;
+    private long id;
     private int quantity;
 }
