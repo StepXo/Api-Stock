@@ -1,5 +1,6 @@
 package com.BootcampPragma.Api_Stock.infrastructure.securityconfig;
 
+import com.BootcampPragma.Api_Stock.infrastructure.Utils.InfraConstants;
 import com.BootcampPragma.Api_Stock.infrastructure.securityconfig.jwtconfiguration.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -26,10 +27,9 @@ public class ConfigFilter {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/category/saveCategory").hasRole("ADMIN")
-                        .requestMatchers("/item/saveItem").hasRole("ADMIN")
-                        .requestMatchers("/brand/saveBrand").hasRole("ADMIN")
-                        .requestMatchers("/item/increase").hasAnyRole("WAREHOUSE_AUX","ADMIN")
+                        .requestMatchers(InfraConstants
+                                .getPath(InfraConstants.ITEM_PATH,InfraConstants.SUPPLY_PATH))
+                        .hasAnyRole(InfraConstants.ROLE_WAREHOUSE_AUX,InfraConstants.ROLE_ADMIN)
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -2,10 +2,7 @@ package com.BootcampPragma.Api_Stock.domain.usecase;
 
 import com.BootcampPragma.Api_Stock.domain.Utils.Validation;
 import com.BootcampPragma.Api_Stock.domain.api.CategoryServicePort;
-import com.BootcampPragma.Api_Stock.domain.model.Brand;
 import com.BootcampPragma.Api_Stock.domain.model.Category;
-import com.BootcampPragma.Api_Stock.domain.exeption.DescriptionIsTooLongException;
-import com.BootcampPragma.Api_Stock.domain.exeption.NameIsTooLongException;
 import com.BootcampPragma.Api_Stock.domain.spi.CategoryPersistencePort;
 
 import java.util.List;

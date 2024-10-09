@@ -1,5 +1,6 @@
 package com.BootcampPragma.Api_Stock.infrastructure.securityconfig.jwtconfiguration;
 
+import com.BootcampPragma.Api_Stock.infrastructure.Utils.InfraConstants;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -64,9 +65,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private String getTokenFromRequest(HttpServletRequest request) {
         final String authHeader=request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer "))
+        if(StringUtils.hasText(authHeader) && authHeader.startsWith(InfraConstants.BEARER))
         {
-            return authHeader.substring(7);
+            return authHeader.substring(InfraConstants.SEVEN);
         }
         return null;
     }

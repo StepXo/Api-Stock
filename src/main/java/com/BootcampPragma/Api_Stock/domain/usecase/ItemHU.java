@@ -1,9 +1,9 @@
 package com.BootcampPragma.Api_Stock.domain.usecase;
 
+import com.BootcampPragma.Api_Stock.domain.Utils.DomConstant;
 import com.BootcampPragma.Api_Stock.domain.Utils.Validation;
 import com.BootcampPragma.Api_Stock.domain.api.ItemServicePort;
 import com.BootcampPragma.Api_Stock.domain.exeption.ActualizationItemExeption;
-import com.BootcampPragma.Api_Stock.domain.exeption.CategoryListDuplicateExeption;
 import com.BootcampPragma.Api_Stock.domain.model.Brand;
 import com.BootcampPragma.Api_Stock.domain.model.Category;
 import com.BootcampPragma.Api_Stock.domain.model.Item;
@@ -13,8 +13,7 @@ import com.BootcampPragma.Api_Stock.domain.spi.ItemPersistencePort;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 
 public class ItemHU implements ItemServicePort {
 
@@ -67,7 +66,7 @@ public class ItemHU implements ItemServicePort {
 
     @Override
     public Item increaseStock(long articleId, int quantity) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = DomConstant.ZERO; i <=  DomConstant.TWO; i++) {
 
             Item item = itemPersistencePort.getItem(articleId);
 
@@ -76,7 +75,7 @@ public class ItemHU implements ItemServicePort {
             try {
                 return itemPersistencePort.updateItem(item);
             } catch (RuntimeException e) {
-                if (i == 3)break;
+                if (i == DomConstant.TWO) break;
             }
         }
         throw new ActualizationItemExeption();

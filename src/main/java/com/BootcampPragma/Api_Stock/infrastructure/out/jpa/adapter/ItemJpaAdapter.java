@@ -1,21 +1,16 @@
 package com.BootcampPragma.Api_Stock.infrastructure.out.jpa.adapter;
 
-import com.BootcampPragma.Api_Stock.domain.exeption.BrandNotFoundException;
-import com.BootcampPragma.Api_Stock.domain.exeption.CategoryNotFoundException;
-import com.BootcampPragma.Api_Stock.domain.exeption.ItemAlreadyExistsException;
+
 import com.BootcampPragma.Api_Stock.domain.exeption.ItemNotFoundException;
-import com.BootcampPragma.Api_Stock.domain.model.Category;
 import com.BootcampPragma.Api_Stock.domain.model.Item;
 import com.BootcampPragma.Api_Stock.domain.spi.ItemPersistencePort;
 import com.BootcampPragma.Api_Stock.infrastructure.out.jpa.entity.ItemEntity;
 import com.BootcampPragma.Api_Stock.infrastructure.out.jpa.mapper.ItemMapper;
-import com.BootcampPragma.Api_Stock.infrastructure.out.jpa.repository.BrandRepository;
-import com.BootcampPragma.Api_Stock.infrastructure.out.jpa.repository.CategoryRepository;
 import com.BootcampPragma.Api_Stock.infrastructure.out.jpa.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.Optional;
+
 
 
 @RequiredArgsConstructor

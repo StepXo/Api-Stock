@@ -4,7 +4,6 @@ import com.BootcampPragma.Api_Stock.domain.model.Category;
 import com.BootcampPragma.Api_Stock.domain.spi.CategoryPersistencePort;
 import com.BootcampPragma.Api_Stock.domain.exeption.CategoryAlreadyExistsException;
 import com.BootcampPragma.Api_Stock.domain.exeption.DescriptionNotFoundException;
-import com.BootcampPragma.Api_Stock.domain.exeption.CategoryNotFoundException;
 import com.BootcampPragma.Api_Stock.infrastructure.out.jpa.entity.CategoryEntity;
 import com.BootcampPragma.Api_Stock.infrastructure.out.jpa.mapper.CategoryMapper;
 import com.BootcampPragma.Api_Stock.infrastructure.out.jpa.repository.CategoryRepository;
