@@ -23,8 +23,6 @@ public class ItemJpaAdapter implements ItemPersistencePort {
 
     private final ItemRepository itemRepository;
     private final ItemMapper itemMapper;
-    private final CategoryRepository categoryRepository;
-    private final BrandRepository brandRepository;
 
 
 
@@ -39,19 +37,16 @@ public class ItemJpaAdapter implements ItemPersistencePort {
 
     @Override
     public Item getItem(String name) {
-        return itemMapper.toItem(itemRepository.findByName(name)
-                .orElseThrow(ItemNotFoundException::new));
+        return itemRepository.findByName(name)
+                .map(itemMapper::toItem)
+                .orElse(null);
     }
 
     @Override
     public Item getItem(long id) {
-        Optional<ItemEntity> item = itemRepository.findById(id);
-        if (item.isEmpty()) {
-            throw new ItemNotFoundException();
-        }
-        ItemEntity entity = item.get();
-
-        return itemMapper.toItem(entity) ;
+        return itemRepository.findById(id)
+                .map(itemMapper::toItem)
+                .orElse(null);
     }
 
     @Override
@@ -64,17 +59,6 @@ public class ItemJpaAdapter implements ItemPersistencePort {
 
     @Override
     public Item saveItem(Item item) {
-        if (itemRepository.findByName(item.getName()).isPresent()) {
-            throw new ItemAlreadyExistsException();
-        }
-        for (Category category : item.getCategory()) {
-            if (categoryRepository.findById(category.getId()).isEmpty()) {
-                throw new CategoryNotFoundException();
-            }
-        }
-        if (item.getBrand() != null && brandRepository.findById(item.getBrand().getId()).isEmpty()) {
-            throw new BrandNotFoundException();
-        }
         ItemEntity itemEntity = itemRepository.save(itemMapper.toItemEntity(item));
         return itemMapper.toItem(itemEntity);
     }

@@ -57,11 +57,11 @@ public class BeanConfiguration {
 
     @Bean
     public ItemPersistencePort itemPersistencePort(){
-        return new ItemJpaAdapter(itemRepository, itemMapper,categoryRepository,brandRepository);
+        return new ItemJpaAdapter(itemRepository, itemMapper);
     }
     @Bean
     public ItemServicePort itemServicePort(){
-        return new ItemHU(itemPersistencePort());
+        return new ItemHU(itemPersistencePort(),categoryPersistencePort(),brandPersistencePort());
     }
 
 }

@@ -60,6 +60,12 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.DESCRIPTION_NOT_FOUND.getMessage()));
     }
+    @ExceptionHandler(NameNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleNameNotFoundException(
+            NameNotFoundException nameNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.NAME_NOT_FOUND.getMessage()));
+    }
 
     @ExceptionHandler(CategoryNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleCategoryNotFoundException(

@@ -31,12 +31,6 @@ public class CategoryJpaAdapter implements CategoryPersistencePort {
     @Override
     public Category saveCategory(Category category){
 
-        if (categoryRepository.findByName(category.getName()).isPresent()){
-            throw new CategoryAlreadyExistsException();
-        } else if (category.getDescription().isEmpty()){
-            throw new DescriptionNotFoundException();
-        }
-
         CategoryEntity categoryEntity = this.categoryRepository.save(
                 categoryMapper.toCategoryEntity(category)
         );
@@ -45,12 +39,16 @@ public class CategoryJpaAdapter implements CategoryPersistencePort {
 
     @Override
     public Category getCategory(String name) {
-        return categoryMapper.toCategory(categoryRepository.findByName(name)
-                .orElseThrow(CategoryNotFoundException::new));
+        return categoryRepository.findByName(name)
+                .map(categoryMapper::toCategory)
+                .orElse(null);
     }
-    public Category getCategory(Long id) {
-        return categoryMapper.toCategory(categoryRepository.findById(id)
-                .orElseThrow(CategoryNotFoundException::new));
+
+    @Override
+    public Category getCategory(long id) {
+        return categoryRepository.findById(id)
+                .map(categoryMapper::toCategory)
+                .orElse(null);
     }
 
     @Override

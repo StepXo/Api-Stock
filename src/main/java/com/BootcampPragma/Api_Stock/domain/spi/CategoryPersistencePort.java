@@ -10,7 +10,8 @@ public interface CategoryPersistencePort {
     void updateCategory(Category category);
 
     Category getCategory(String name);
-    Category getCategory(Long id);
+    Category getCategory(long id);
+
     List<Category> getAllCategories();
 
     void deleteCategory(String categoryId);

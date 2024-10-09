@@ -1,5 +1,6 @@
 package com.BootcampPragma.Api_Stock.domain.usecase;
 
+import com.BootcampPragma.Api_Stock.domain.Utils.Validation;
 import com.BootcampPragma.Api_Stock.domain.api.BrandServicePort;
 import com.BootcampPragma.Api_Stock.domain.exeption.DescriptionIsTooLongException;
 import com.BootcampPragma.Api_Stock.domain.exeption.NameIsTooLongException;
@@ -19,11 +20,9 @@ public class BrandHU implements BrandServicePort {
     @Override
     public Brand saveBrand(Brand brand) {
 
-        if (brand.getName().length() > 50) {
-            throw new NameIsTooLongException();
-        } else if (brand.getDescription().length() > 120) {
-            throw new DescriptionIsTooLongException();
-        }
+        Brand repository = brandPersistencePort.getBrand(brand.getName());
+        Validation.validate(brand,repository);
+
         return brandPersistencePort.saveBrand(brand);
     }
 
@@ -34,11 +33,10 @@ public class BrandHU implements BrandServicePort {
 
     @Override
     public void updateBrand(Brand brand) {
-        if (brand.getName().length() > 50) {
-            throw new NameIsTooLongException();
-        } else if (brand.getDescription().length() > 120) {
-            throw new DescriptionIsTooLongException();
-        }
+
+        Brand repository = brandPersistencePort.getBrand(brand.getName());
+        Validation.validate(brand,repository);
+
         brandPersistencePort.saveBrand(brand);
     }
 
@@ -46,6 +44,7 @@ public class BrandHU implements BrandServicePort {
     public Brand getBrand(String name){
         return brandPersistencePort.getBrand(name);
     }
+
 
     @Override
     public void deleteBrand(String brandId) {
