@@ -49,7 +49,7 @@ public class ItemController {
     @PostMapping("/increase")
     @PreAuthorize("hasRole('WAREHOUSE_AUX') or hasRole('ADMIN')")
     private ItemAuxDto increaseStock(@RequestBody IncreaseStockDto increaseStockDto) {
-        return itemService.increaseStock(increaseStockDto.getArticleId(), increaseStockDto.getQuantity());
+        return itemService.increaseStock(increaseStockDto.getId(), increaseStockDto.getQuantity());
     }
 
 }

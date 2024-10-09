@@ -56,16 +56,14 @@ public class ItemHU implements ItemServicePort {
     @Override
     public Item increaseStock(long articleId, int quantity) {
         for (int i = 0; i < 4; i++) {
-
             Item item = itemPersistencePort.getItem(articleId);
+            System.out.println(item.getQuantity());
 
             item.setQuantity(item.getQuantity() + quantity);
+            System.out.println(item.getQuantity());
 
-            try {
-                return itemPersistencePort.updateItem(item);
-            } catch (RuntimeException e) {
-                if (i == 3)break;
-            }
+
+            return itemPersistencePort.updateItem(item);
         }
         throw new ActualizationItemExeption();
 
