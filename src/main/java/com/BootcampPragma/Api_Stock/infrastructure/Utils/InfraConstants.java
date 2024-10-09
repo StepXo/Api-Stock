@@ -9,6 +9,7 @@ public class InfraConstants {
     public static final String BEARER = "Bearer ";
     public static final String AUTHORIZATION = "Authorization";
     public static final String MESSAGE = "Message";
+
     public static final String USER_API = "Api-User";
     public static final String USER_PATH = "/{id}";
     public static final String BRAND_PATH = "/brand";
@@ -27,7 +28,7 @@ public class InfraConstants {
 
 
     public static String getPath(String basePath, String path) {
-        return basePath + path; // Build the complete path
+        return basePath + path;
     }
 
 
