@@ -11,7 +11,7 @@ public class InfraConstants {
     public static final String MESSAGE = "Message";
 
     public static final String USER_API = "Api-User";
-    public static final String USER_PATH = "/{id}";
+    public static final String ID_PATH = "/{id}";
     public static final String BRAND_PATH = "/brand";
     public static final String CATEGORY_PATH = "/category";
     public static final String ITEM_PATH = "/item";
@@ -20,6 +20,8 @@ public class InfraConstants {
     public static final String SUPPLY_PATH = "/increase";
 
     public static final String HAS_WAREHOUSE_AUX_OR_ROLE_ADMIN = "hasRole('WAREHOUSE_AUX') or hasRole('ADMIN')";
+    public static final String HAS_USER_OR_ROLE_ADMIN = "hasRole('USER') or hasRole('ADMIN')";
+
     public static final String HAS_ROLE_ADMIN = "hasRole('ADMIN')";
     public static final String ROLE_ADMIN = "ADMIN";
     public static final String ROLE_WAREHOUSE_AUX = "WAREHOUSE_AUX";

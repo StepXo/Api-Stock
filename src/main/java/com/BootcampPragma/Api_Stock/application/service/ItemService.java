@@ -70,6 +70,10 @@ public class ItemService {
         Item item = itemServicePort.getItem(name);
         return itemRequest.toItemDto(item);
     }
+    public ItemAuxDto getItem(long id){
+        Item item = itemServicePort.getItem(id);
+        return itemRequest.toItemDto(item);
+    }
 
     public ItemAuxDto increaseStock(long articleId, int quantity){
         Item item = itemServicePort.increaseStock(articleId,quantity);
