@@ -52,4 +52,10 @@ public class ItemController {
         return itemService.increaseStock(increaseStockDto.getId(),(int) increaseStockDto.getQuantity());
     }
 
+    @GetMapping(InfraConstants.ID_PATH)
+    @PreAuthorize(InfraConstants.HAS_USER_OR_ROLE_ADMIN)
+    private ItemAuxDto getById(@RequestBody ItemAuxDto item) {
+        return itemService.getItem(item.getId());
+    }
+
 }

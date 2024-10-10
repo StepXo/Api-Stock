@@ -53,6 +53,11 @@ public class ItemHU implements ItemServicePort {
         return itemPersistencePort.getItem(name);
     }
 
+    @Override
+    public Item getItem(long id) {
+        return itemPersistencePort.getItem(id);
+    }
+
 
     @Override
     public void updateItem(Item item) {
