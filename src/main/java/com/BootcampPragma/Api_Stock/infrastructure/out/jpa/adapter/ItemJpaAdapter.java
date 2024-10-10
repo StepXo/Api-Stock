@@ -19,8 +19,6 @@ public class ItemJpaAdapter implements ItemPersistencePort {
     private final ItemRepository itemRepository;
     private final ItemMapper itemMapper;
 
-
-
     @Override
     public List<Item> getItemList() {
         return itemRepository

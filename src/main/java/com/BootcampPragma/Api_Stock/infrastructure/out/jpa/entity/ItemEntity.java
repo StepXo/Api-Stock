@@ -17,9 +17,13 @@ public class ItemEntity {
     @Id
     private long id;
 
+    @Column(unique = true)
     private String name;
+
     private String description;
+
     private long quantity;
+
     private double price;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -27,7 +31,6 @@ public class ItemEntity {
             joinColumns = @JoinColumn(name = "item_id"),
     inverseJoinColumns = @JoinColumn(name = "category_id"))
     List<CategoryEntity> category;
-
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "brand")
