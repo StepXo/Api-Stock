@@ -4,6 +4,8 @@ import com.BootcampPragma.Api_Stock.domain.Utils.DomConstant;
 import com.BootcampPragma.Api_Stock.domain.Utils.Validation;
 import com.BootcampPragma.Api_Stock.domain.api.ItemServicePort;
 import com.BootcampPragma.Api_Stock.domain.exeption.ActualizationItemExeption;
+import com.BootcampPragma.Api_Stock.domain.exeption.ItemNotFoundException;
+import com.BootcampPragma.Api_Stock.domain.exeption.QuantityIsNotEnough;
 import com.BootcampPragma.Api_Stock.domain.model.Brand;
 import com.BootcampPragma.Api_Stock.domain.model.Category;
 import com.BootcampPragma.Api_Stock.domain.model.Item;
@@ -54,7 +56,14 @@ public class ItemHU implements ItemServicePort {
     }
 
     @Override
-    public Item getItem(long id) {
+    public Item checkStock(long id,long quantity) {
+        Item item = itemPersistencePort.getItem(id);
+        if(item == null){
+            throw new ItemNotFoundException();
+        }
+        if(item.getQuantity()<=quantity){
+            throw new QuantityIsNotEnough();
+        }
         return itemPersistencePort.getItem(id);
     }
 
