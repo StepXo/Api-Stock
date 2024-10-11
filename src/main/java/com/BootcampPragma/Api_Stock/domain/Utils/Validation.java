@@ -41,7 +41,7 @@ public class Validation {
                 throw new CategoryAlreadyExistsException();
 
             } else {
-                throw new IllegalArgumentException("Unsupported object type.");
+                throw new IllegalArgumentException();
             }
         }
     }

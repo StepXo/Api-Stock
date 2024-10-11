@@ -25,14 +25,15 @@ public class ItemController {
     }
 
     @GetMapping(InfraConstants.ORDER)
-    private Page<ItemAuxDto> getCategories(
+    private Page<ItemAuxDto> getAllItems(
             @PathVariable String order,
             @RequestParam(defaultValue = InfraConstants.ZERO) int page,
             @RequestParam(defaultValue = InfraConstants.TEN) int size) {
         return itemService.getItemsOrdered(order, page, size);
     }
+
     @GetMapping(InfraConstants.TYPE_ORDER)
-    private Page<ItemAuxDto> getCategories(
+    private Page<ItemAuxDto> getAllItems(
             @PathVariable String order,
             @PathVariable String variable,
             @RequestParam(defaultValue = InfraConstants.ZERO) int page,
@@ -52,10 +53,11 @@ public class ItemController {
         return itemService.increaseStock(increaseStockDto.getId(),(int) increaseStockDto.getQuantity());
     }
 
-    @GetMapping(InfraConstants.ID_PATH)
+    @GetMapping(InfraConstants.GET_ID_PATH)
     @PreAuthorize(InfraConstants.HAS_USER_OR_ROLE_ADMIN)
-    private ItemAuxDto getById(@RequestBody ItemAuxDto item) {
-        return itemService.getItem(item.getId());
+    private ItemAuxDto checkStock(@PathVariable Long id,
+                                  @RequestParam long quantity) {
+        return itemService.checkStock(id, quantity);
     }
 
 }

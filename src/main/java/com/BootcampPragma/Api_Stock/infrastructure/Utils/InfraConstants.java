@@ -12,6 +12,8 @@ public class InfraConstants {
 
     public static final String USER_API = "Api-User";
     public static final String ID_PATH = "/{id}";
+    public static final String GET_ID_PATH = "/cart/{id}";
+
     public static final String BRAND_PATH = "/brand";
     public static final String CATEGORY_PATH = "/category";
     public static final String ITEM_PATH = "/item";

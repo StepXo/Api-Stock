@@ -11,7 +11,7 @@ public interface ItemServicePort {
         List<Item> getItemList();
 
         Item getItem(String name);
-        Item getItem(long id);
+        Item checkStock(long id,long quantity);
 
         void updateItem(Item item);
 
