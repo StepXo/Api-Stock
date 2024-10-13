@@ -11,11 +11,14 @@ public interface ItemServicePort {
         List<Item> getItemList();
 
         Item getItem(String name);
-        Item checkStock(long id,long quantity);
+        Item getItem(long id);
+        void checkStock(long id,long quantity);
 
         void updateItem(Item item);
 
         void deleteItem(String articleId);
 
         Item increaseStock(long articleId, int quantity);
+
+        List<Integer> buy(List<Item> list);
 }

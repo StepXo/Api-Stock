@@ -12,6 +12,7 @@ import com.BootcampPragma.Api_Stock.domain.model.Item;
 import com.BootcampPragma.Api_Stock.domain.spi.BrandPersistencePort;
 import com.BootcampPragma.Api_Stock.domain.spi.CategoryPersistencePort;
 import com.BootcampPragma.Api_Stock.domain.spi.ItemPersistencePort;
+import com.BootcampPragma.Api_Stock.domain.spi.TransactionFeignPort;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +23,13 @@ public class ItemHU implements ItemServicePort {
     private final ItemPersistencePort itemPersistencePort;
     private final CategoryPersistencePort categoryPersistencePort;
     private final BrandPersistencePort brandPersistencePort;
+    private final TransactionFeignPort transactionFeignPort;
 
-    public ItemHU(ItemPersistencePort itemPersistencePort, CategoryPersistencePort categoryPersistencePort, BrandPersistencePort brandPersistencePort) {
+    public ItemHU(ItemPersistencePort itemPersistencePort, CategoryPersistencePort categoryPersistencePort, BrandPersistencePort brandPersistencePort, TransactionFeignPort transactionFeignPort) {
         this.itemPersistencePort = itemPersistencePort;
         this.categoryPersistencePort = categoryPersistencePort;
         this.brandPersistencePort = brandPersistencePort;
+        this.transactionFeignPort = transactionFeignPort;
     }
 
     @Override
@@ -56,15 +59,26 @@ public class ItemHU implements ItemServicePort {
     }
 
     @Override
-    public Item checkStock(long id,long quantity) {
+    public Item getItem(long id) {
         Item item = itemPersistencePort.getItem(id);
+
         if(item == null){
             throw new ItemNotFoundException();
         }
-        if(item.getQuantity()<=quantity){
-            throw new QuantityIsNotEnough();
+
+        return item;
+    }
+
+    @Override
+    public void checkStock(long id,long quantity) {
+        int validation = validateItem(id, quantity);
+        if(validation == 1){
+            throw new ItemNotFoundException();
         }
-        return itemPersistencePort.getItem(id);
+        if(validation == 2){
+            String response = transactionFeignPort.getDate(id);
+            throw new QuantityIsNotEnough(response);
+        }
     }
 
 
@@ -80,7 +94,7 @@ public class ItemHU implements ItemServicePort {
 
     @Override
     public Item increaseStock(long articleId, int quantity) {
-        for (int i = DomConstant.ZERO; i <=  DomConstant.TWO; i++) {
+        for (int i = DomConstant.ZERO; i <= DomConstant.TWO; i++) {
 
             Item item = itemPersistencePort.getItem(articleId);
 
@@ -95,6 +109,44 @@ public class ItemHU implements ItemServicePort {
         }
         throw new ActualizationItemExeption();
 
+    }
+
+    @Override
+    public List<Integer> buy(List<Item> list) {
+
+        List<Integer> response = new ArrayList<>();
+        boolean hasError = false;
+
+        for (Item item : list) {
+            try {
+                checkStock(item.getId(), item.getQuantity());
+                response.add(0);
+            } catch (ItemNotFoundException e) {
+                response.add(1);
+                hasError = true;
+
+            } catch (QuantityIsNotEnough e){
+                response.add(2);
+                hasError = true;
+            }
+        }
+        if (!hasError) {
+            for (Item item : list) {
+                increaseStock(item.getId(), (int) item.getQuantity() * -1);
+            }
+        }
+        return response;
+    }
+
+    private int validateItem(long id, long quantity) {
+        Item item = itemPersistencePort.getItem(id);
+        if (item == null) {
+            return 1;
+        }
+        if (item.getQuantity() <= quantity) {
+            return 2;
+        }
+        return 0;
     }
 
 }

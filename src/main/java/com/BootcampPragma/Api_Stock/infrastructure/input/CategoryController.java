@@ -5,12 +5,13 @@ import com.BootcampPragma.Api_Stock.application.service.CategoryService;
 import com.BootcampPragma.Api_Stock.infrastructure.Utils.InfraConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping(InfraConstants.CATEGORY_PATH)
+@RequestMapping(InfraConstants.CATEGORY)
 @RequiredArgsConstructor
 public class CategoryController {
 
@@ -25,11 +26,11 @@ public class CategoryController {
     //@GetMapping
 
     @GetMapping(InfraConstants.ORDER)
-    private Page<CategoryDto> getCategories(
+    private ResponseEntity<Page<CategoryDto>> getCategories(
             @PathVariable String order,
             @RequestParam(defaultValue = InfraConstants.ZERO) int page,
             @RequestParam(defaultValue = InfraConstants.TEN) int size) {
-        return categoryService.getCategoriesOrderedByName(order, page, size);
+        return ResponseEntity.ok(categoryService.getCategoriesOrderedByName(order, page, size));
     }
 }
 

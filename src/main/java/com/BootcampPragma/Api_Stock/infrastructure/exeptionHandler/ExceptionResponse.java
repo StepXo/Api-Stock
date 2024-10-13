@@ -18,7 +18,7 @@ public enum ExceptionResponse {
     DESCRIPTION_IS_TOO_LONG("The description is too long for this request"),
     CATEGORY_SIZE_LIST("The article must have 1 to 3 categories"),
     ACTUALIZATION_ITEM("There's a problem with the actualization"),
-    QUANTITY_IS_NOT_ENOUGH("The quantity is not available")
+    QUANTITY_IS_NOT_ENOUGH("The quantity is not available. \n")
     ;
 
 

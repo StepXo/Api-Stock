@@ -4,6 +4,7 @@ import com.BootcampPragma.Api_Stock.infrastructure.Utils.InfraConstants;
 import com.BootcampPragma.Api_Stock.infrastructure.Utils.UserExtractor;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import feign.codec.ErrorDecoder;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,4 +23,5 @@ public class FeignConfiguration {
             }
         };
     }
+
 }

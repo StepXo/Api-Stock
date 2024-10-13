@@ -67,18 +67,18 @@ public class Validation {
     }
 
     public static void validate(Category creation, Category repository){
-        validateName(creation.getName(), 50);
-        validateDescription(creation.getDescription(), 90);
+        validateName(creation.getName(), DomConstant.NAME);
+        validateDescription(creation.getDescription(), DomConstant.DESCRIPTION_1);
         validateCreation(repository);
     }
     public static void validate(Brand creation, Brand repository){
-        validateName(creation.getName(),50);
-        validateDescription(creation.getDescription(), 120);
+        validateName(creation.getName(),DomConstant.NAME);
+        validateDescription(creation.getDescription(), DomConstant.DESCRIPTION_2);
         validateCreation(repository);
     }
     public static void validate(Item creation, Item repository,List<Category> categoryList,Brand brand){
-        validateName(creation.getName(),200);
-        validateDescription(creation.getDescription(),200);
+        validateName(creation.getName(),DomConstant.DEFAULT);
+        validateDescription(creation.getDescription(),DomConstant.DEFAULT);
         validateCreation(repository);
         validateCategory(categoryList);
         validateUniqueCategory(categoryList);

@@ -6,6 +6,7 @@ import com.BootcampPragma.Api_Stock.domain.api.BrandServicePort;
 import com.BootcampPragma.Api_Stock.domain.spi.ItemPersistencePort;
 import com.BootcampPragma.Api_Stock.domain.spi.CategoryPersistencePort;
 import com.BootcampPragma.Api_Stock.domain.spi.BrandPersistencePort;
+import com.BootcampPragma.Api_Stock.domain.spi.TransactionFeignPort;
 import com.BootcampPragma.Api_Stock.domain.usecase.ItemHU;
 import com.BootcampPragma.Api_Stock.domain.usecase.CategoryHU;
 import com.BootcampPragma.Api_Stock.domain.usecase.BrandHU;
@@ -35,11 +36,10 @@ public class BeanConfiguration {
     private final ItemRepository itemRepository;
     private final ItemMapper itemMapper;
 
-    @Bean
-    public CategoryPersistencePort categoryPersistencePort(){
-        return new CategoryJpaAdapter(categoryRepository, categoryMapper);
-    }
+    private final TransactionFeignPort transactionFeignPort;
 
+    @Bean
+    public CategoryPersistencePort categoryPersistencePort(){return new CategoryJpaAdapter(categoryRepository, categoryMapper);}
     @Bean
     public CategoryServicePort categoryServicePort(){
         return new CategoryHU(categoryPersistencePort());
@@ -49,7 +49,6 @@ public class BeanConfiguration {
     public BrandPersistencePort brandPersistencePort(){
         return new BrandJpaAdapter(brandRepository, brandMapper);
     }
-
     @Bean
     public BrandServicePort brandServicePort(){
         return new BrandHU(brandPersistencePort());
@@ -61,7 +60,7 @@ public class BeanConfiguration {
     }
     @Bean
     public ItemServicePort itemServicePort(){
-        return new ItemHU(itemPersistencePort(),categoryPersistencePort(),brandPersistencePort());
+        return new ItemHU(itemPersistencePort(),categoryPersistencePort(),brandPersistencePort(),transactionFeignPort);
     }
 
 }
