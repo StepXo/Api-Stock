@@ -108,8 +108,10 @@ public class ControllerAdvisor {
     @ExceptionHandler(QuantityIsNotEnough.class)
     public ResponseEntity<Map<String, String>> quantityIsNotEnough(
             QuantityIsNotEnough quantityIsNotEnough) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Collections.singletonMap(InfraConstants.MESSAGE, ExceptionResponse.QUANTITY_IS_NOT_ENOUGH.getMessage()));
+        String fullMessage = ExceptionResponse.QUANTITY_IS_NOT_ENOUGH.getMessage() + quantityIsNotEnough.getMessage();
+
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(InfraConstants.MESSAGE, fullMessage));
     }
 
 }

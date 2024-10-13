@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-10-10T20:19:11-0500",
+    date = "2024-10-13T02:03:25-0500",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.8.jar, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
@@ -62,6 +62,25 @@ public class ItemRequestImpl implements ItemRequest {
         return item;
     }
 
+    @Override
+    public Item toItem(ItemAuxDto item) {
+        if ( item == null ) {
+            return null;
+        }
+
+        Item item1 = new Item();
+
+        item1.setId( item.getId() );
+        item1.setName( item.getName() );
+        item1.setDescription( item.getDescription() );
+        item1.setQuantity( item.getQuantity() );
+        item1.setPrice( item.getPrice() );
+        item1.setCategory( categoryDtoListToCategoryList( item.getCategory() ) );
+        item1.setBrand( brandRequest.toBrand( item.getBrand() ) );
+
+        return item1;
+    }
+
     protected List<CategoryDto> categoryListToCategoryDtoList(List<Category> list) {
         if ( list == null ) {
             return null;
@@ -70,6 +89,19 @@ public class ItemRequestImpl implements ItemRequest {
         List<CategoryDto> list1 = new ArrayList<CategoryDto>( list.size() );
         for ( Category category : list ) {
             list1.add( categoryRequest.toCategoryDto( category ) );
+        }
+
+        return list1;
+    }
+
+    protected List<Category> categoryDtoListToCategoryList(List<CategoryDto> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<Category> list1 = new ArrayList<Category>( list.size() );
+        for ( CategoryDto categoryDto : list ) {
+            list1.add( categoryRequest.toCategory( categoryDto ) );
         }
 
         return list1;

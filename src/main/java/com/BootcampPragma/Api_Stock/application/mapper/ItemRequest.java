@@ -19,11 +19,11 @@ public interface ItemRequest {
 
     ItemAuxDto toItemDto(Item item);
 
-    @Mappings({
-            @Mapping(source = AppConstant.CATEGORY_ID,target = AppConstant.CATEGORY,qualifiedByName = AppConstant.MAP_TO_CATEGORIES),
-            @Mapping(source = AppConstant.BRAND_ID,target = AppConstant.BRAND,qualifiedByName = AppConstant.TO_BRAND)
-    })
+
+    @Mapping(source = AppConstant.CATEGORY_ID,target = AppConstant.CATEGORY,qualifiedByName = AppConstant.MAP_TO_CATEGORIES)
+    @Mapping(source = AppConstant.BRAND_ID,target = AppConstant.BRAND,qualifiedByName = AppConstant.TO_BRAND)
     Item toItem(ItemDto itemDto);
+    Item toItem(ItemAuxDto item);
 
     @Named(AppConstant.MAP_TO_CATEGORIES)
     default List<Category> mapToCategories (List<Long> categoryIds){

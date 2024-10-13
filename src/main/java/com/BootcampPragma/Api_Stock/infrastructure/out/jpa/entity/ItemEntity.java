@@ -1,5 +1,6 @@
 package com.BootcampPragma.Api_Stock.infrastructure.out.jpa.entity;
 
+import com.BootcampPragma.Api_Stock.infrastructure.Utils.InfraConstants;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,13 +28,13 @@ public class ItemEntity {
     private double price;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "article_category",
-            joinColumns = @JoinColumn(name = "item_id"),
-    inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JoinTable(name = InfraConstants.ARTICLE_CATEGORY,
+            joinColumns = @JoinColumn(name = InfraConstants.ITEM_ID),
+    inverseJoinColumns = @JoinColumn(name = InfraConstants.CATEGORY_ID))
     List<CategoryEntity> category;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "brand")
+    @JoinColumn(name = InfraConstants.BRAND_NAME)
     private BrandEntity brand;
 
 }

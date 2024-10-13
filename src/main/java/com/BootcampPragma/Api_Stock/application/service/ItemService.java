@@ -3,6 +3,7 @@ package com.BootcampPragma.Api_Stock.application.service;
 import com.BootcampPragma.Api_Stock.application.dto.ItemDto;
 import com.BootcampPragma.Api_Stock.application.dto.ItemAuxDto;
 import com.BootcampPragma.Api_Stock.application.mapper.ItemRequest;
+import com.BootcampPragma.Api_Stock.application.util.AppConstant;
 import com.BootcampPragma.Api_Stock.application.util.PaginationUtil;
 import com.BootcampPragma.Api_Stock.application.util.SorterUtil;
 import com.BootcampPragma.Api_Stock.domain.api.ItemServicePort;
@@ -59,7 +60,7 @@ public class ItemService {
     
 
     public void saveItem(ItemDto itemDto) {
-        if (itemDto.getCategoryId() == null || itemDto.getCategoryId().isEmpty() || itemDto.getCategoryId().size() > 3) {
+        if (itemDto.getCategoryId() == null || itemDto.getCategoryId().isEmpty() || itemDto.getCategoryId().size() > AppConstant.THREE) {
             throw new CategoryListSizeException();
         }
         Item item = itemRequest.toItem(itemDto);
@@ -70,15 +71,23 @@ public class ItemService {
         Item item = itemServicePort.getItem(name);
         return itemRequest.toItemDto(item);
     }
-    public ItemAuxDto checkStock(long id,long quantity){
-        Item item = itemServicePort.checkStock(id,quantity);
-        return itemRequest.toItemDto(item);
+    public void checkStock(long id,long quantity){
+        itemServicePort.checkStock(id,quantity);
     }
 
     public ItemAuxDto increaseStock(long articleId, int quantity){
         Item item = itemServicePort.increaseStock(articleId,quantity);
         return itemRequest.toItemDto(item);
-
     }
 
+    public List<ItemAuxDto> getItemsByList(List<Long> itemIds){
+        return itemIds.stream()
+                .map(itemServicePort::getItem)
+                .map(itemRequest::toItemDto)
+                .toList();
+    }
+
+    public List<Integer> buy(List<ItemAuxDto> list) {
+        return itemServicePort.buy(list.stream().map(itemRequest::toItem).toList());
+    }
 }

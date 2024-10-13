@@ -59,8 +59,8 @@ public class SorterUtil {
                         item.setCategory(getSortedCategories(order, item.getCategory()))
                 );
                 yield AppConstant.ORDER.equalsIgnoreCase(order)
-                        ? Comparator.comparing((ItemAuxDto item) -> item.getCategory().get(0).getName())
-                        : Comparator.comparing((ItemAuxDto item) -> item.getCategory().get(0).getName()).reversed();
+                        ? Comparator.comparing((ItemAuxDto item) -> item.getCategory().get(AppConstant.FIRST).getName())
+                        : Comparator.comparing((ItemAuxDto item) -> item.getCategory().get(AppConstant.FIRST).getName()).reversed();
             }
             default -> throw new IllegalArgumentException(AppConstant.ERROR + attribute);
         };

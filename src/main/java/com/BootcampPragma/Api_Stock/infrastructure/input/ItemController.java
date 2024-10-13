@@ -6,13 +6,14 @@ import com.BootcampPragma.Api_Stock.application.service.ItemService;
 import com.BootcampPragma.Api_Stock.infrastructure.Utils.InfraConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(InfraConstants.ITEM_PATH)
+@RequestMapping(InfraConstants.ITEM)
 @RequiredArgsConstructor
 public class ItemController {
 
@@ -20,25 +21,25 @@ public class ItemController {
 
 
     @GetMapping
-    private List<ItemAuxDto> getItemList(){
-        return itemService.getItemList();
+    private ResponseEntity<List<ItemAuxDto>> getItemList(){
+        return ResponseEntity.ok(itemService.getItemList());
     }
 
     @GetMapping(InfraConstants.ORDER)
-    private Page<ItemAuxDto> getAllItems(
+    private ResponseEntity<Page<ItemAuxDto>> getAllItems(
             @PathVariable String order,
             @RequestParam(defaultValue = InfraConstants.ZERO) int page,
             @RequestParam(defaultValue = InfraConstants.TEN) int size) {
-        return itemService.getItemsOrdered(order, page, size);
+        return ResponseEntity.ok(itemService.getItemsOrdered(order, page, size));
     }
 
     @GetMapping(InfraConstants.TYPE_ORDER)
-    private Page<ItemAuxDto> getAllItems(
+    private ResponseEntity<Page<ItemAuxDto>> getAllItems(
             @PathVariable String order,
             @PathVariable String variable,
             @RequestParam(defaultValue = InfraConstants.ZERO) int page,
             @RequestParam(defaultValue = InfraConstants.TEN) int size) {
-        return itemService.getItemsOrdered(order,variable, page, size);
+        return ResponseEntity.ok(itemService.getItemsOrdered(order,variable, page, size));
     }
 
     @PostMapping
@@ -47,17 +48,27 @@ public class ItemController {
         itemService.saveItem(itemDto);
     }
 
-    @PostMapping(InfraConstants.SUPPLY_PATH)
+    @PostMapping(InfraConstants.SUPPLY)
     @PreAuthorize(InfraConstants.HAS_WAREHOUSE_AUX_OR_ROLE_ADMIN)
-    private ItemAuxDto increaseStock(@RequestBody ItemAuxDto increaseStockDto) {
-        return itemService.increaseStock(increaseStockDto.getId(),(int) increaseStockDto.getQuantity());
+    private ResponseEntity<ItemAuxDto> increaseStock(@RequestBody ItemAuxDto increaseStockDto) {
+        return ResponseEntity.ok(itemService.increaseStock(increaseStockDto.getId(),(int) increaseStockDto.getQuantity()));
     }
 
-    @GetMapping(InfraConstants.GET_ID_PATH)
+    @GetMapping(InfraConstants.GET_ID)
     @PreAuthorize(InfraConstants.HAS_USER_OR_ROLE_ADMIN)
-    private ItemAuxDto checkStock(@PathVariable Long id,
+    private void checkStock(@PathVariable Long id,
                                   @RequestParam long quantity) {
-        return itemService.checkStock(id, quantity);
+        itemService.checkStock(id, quantity);
+    }
+
+    @GetMapping(InfraConstants.CART)
+    public ResponseEntity<List<ItemAuxDto>> getItemsByList(@RequestParam List<Long> list) {
+        return ResponseEntity.ok(itemService.getItemsByList(list));
+    }
+
+    @PostMapping(InfraConstants.BUY)
+    public ResponseEntity<List<Integer>> buy(@RequestBody List<ItemAuxDto> list) {
+        return ResponseEntity.ok(itemService.buy(list));
     }
 
 }
