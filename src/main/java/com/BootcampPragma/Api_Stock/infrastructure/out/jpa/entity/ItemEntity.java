@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Table(name = InfraConstants.ITEM_TABLE)
 @Entity
 @Data
 @NoArgsConstructor

@@ -11,6 +11,10 @@ public class InfraConstants {
     public static final String MESSAGE = "Message";
     public static final String ARTICLE_CATEGORY = "article_category";
     public static final String ITEM_ID = "item_id";
+    public static final String ITEM_TABLE = "ITEM";
+    public static final String CATEGORY_TABLE = "CATEGORY";
+    public static final String BRAND_TABLE = "BRAND";
+
     public static final String CATEGORY_ID = "category_id";
     public static final String BRAND_NAME = "brand";
 

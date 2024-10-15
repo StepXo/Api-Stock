@@ -1,20 +1,20 @@
-package com.BootcampPragma.Api_Stock.application.mapper;
+package com.BootcampPragma.Api_Stock.infrastructure.out.jpa.mapper;
 
-import com.BootcampPragma.Api_Stock.application.dto.BrandDto;
 import com.BootcampPragma.Api_Stock.domain.model.Brand;
+import com.BootcampPragma.Api_Stock.infrastructure.out.jpa.entity.BrandEntity;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-10-14T17:56:16-0500",
+    date = "2024-10-14T17:56:17-0500",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.8.jar, environment: Java 17.0.12 (Amazon.com Inc.)"
 )
 @Component
-public class BrandRequestImpl implements BrandRequest {
+public class BrandMapperImpl implements BrandMapper {
 
     @Override
-    public Brand toBrand(BrandDto brand) {
+    public Brand toBrand(BrandEntity brand) {
         if ( brand == null ) {
             return null;
         }
@@ -33,17 +33,17 @@ public class BrandRequestImpl implements BrandRequest {
     }
 
     @Override
-    public BrandDto toBrandDto(Brand brandDto) {
-        if ( brandDto == null ) {
+    public BrandEntity toBrandEntity(Brand brand) {
+        if ( brand == null ) {
             return null;
         }
 
-        BrandDto brandDto1 = new BrandDto();
+        BrandEntity brandEntity = new BrandEntity();
 
-        brandDto1.setId( brandDto.getId() );
-        brandDto1.setName( brandDto.getName() );
-        brandDto1.setDescription( brandDto.getDescription() );
+        brandEntity.setId( brand.getId() );
+        brandEntity.setName( brand.getName() );
+        brandEntity.setDescription( brand.getDescription() );
 
-        return brandDto1;
+        return brandEntity;
     }
 }

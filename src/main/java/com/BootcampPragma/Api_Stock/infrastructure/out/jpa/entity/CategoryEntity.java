@@ -1,10 +1,12 @@
 package com.BootcampPragma.Api_Stock.infrastructure.out.jpa.entity;
 
+import com.BootcampPragma.Api_Stock.infrastructure.Utils.InfraConstants;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Table(name = InfraConstants.CATEGORY_TABLE)
 @Entity
 @Data
 @NoArgsConstructor
