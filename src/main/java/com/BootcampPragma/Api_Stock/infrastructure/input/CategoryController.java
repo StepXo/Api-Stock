@@ -23,11 +23,9 @@ public class CategoryController {
         categoryService.saveCategory(category);
     }
 
-    //@GetMapping
-
-    @GetMapping(InfraConstants.ORDER)
+    @GetMapping
     private ResponseEntity<Page<CategoryDto>> getCategories(
-            @PathVariable String order,
+            @RequestParam (defaultValue = InfraConstants.ORDER) String order,
             @RequestParam(defaultValue = InfraConstants.ZERO) int page,
             @RequestParam(defaultValue = InfraConstants.TEN) int size) {
         return ResponseEntity.ok(categoryService.getCategoriesOrderedByName(order, page, size));

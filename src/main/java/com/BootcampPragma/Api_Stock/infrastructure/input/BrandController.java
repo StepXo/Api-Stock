@@ -24,9 +24,9 @@ public class BrandController {
          brandService.saveBrand(brand);
     }
 
-    @GetMapping(InfraConstants.ORDER)
+    @GetMapping
     private ResponseEntity<Page<BrandDto>> getCategories(
-            @PathVariable String order,
+            @RequestParam (defaultValue = InfraConstants.ORDER) String order,
             @RequestParam(defaultValue = InfraConstants.ZERO) int page,
             @RequestParam(defaultValue = InfraConstants.TEN) int size) {
         return ResponseEntity.ok(brandService.getBrandsOrderedByName(order, page, size));
