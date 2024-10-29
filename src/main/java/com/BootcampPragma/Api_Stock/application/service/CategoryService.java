@@ -38,11 +38,7 @@ public class CategoryService {
 
     public Page<CategoryDto> getCategoriesOrderedByName(String order, int page, int size) {
 
-        List<CategoryDto> categoryDto = categoryServicePort
-                .getAllCategories()
-                .stream()
-                .map(categoryRequest::toCategoryDto)
-                .toList();
+        List<CategoryDto> categoryDto = getCategoryList();
 
         List<CategoryDto> sortedCategoryDto = sorterUtil.getSortedCategories(order,categoryDto);
         return paginationUtil.getCategoriesPagination(order, page, size, sortedCategoryDto);
@@ -51,5 +47,13 @@ public class CategoryService {
     public CategoryDto getCategory(String name){
         Category category = categoryServicePort.getCategory(name);
         return categoryRequest.toCategoryDto(category);
+    }
+
+    public List<CategoryDto> getCategoryList() {
+        return categoryServicePort
+                .getAllCategories()
+                .stream()
+                .map(categoryRequest::toCategoryDto)
+                .toList();
     }
 }

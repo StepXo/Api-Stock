@@ -43,7 +43,7 @@ public class BrandJpaAdapter implements BrandPersistencePort {
     public Brand getBrand(long id){
         return brandRepository.findById(id)
                 .map(brandMapper::toBrand)
-                .orElse(null);    }
+                .orElse(null);}
 
     @Override
     public void updateBrand(Brand brand){

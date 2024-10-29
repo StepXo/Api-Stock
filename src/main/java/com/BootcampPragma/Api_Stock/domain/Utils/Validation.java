@@ -28,16 +28,16 @@ public class Validation {
         }
     }
 
-    private static void validateCreation(Object objeto) {
-        if (objeto != null) {
+    private static void validateCreation(Object object) {
+        if (object != null) {
 
-            if (objeto instanceof Brand) {
+            if (object instanceof Brand) {
                 throw new BrandAlreadyExistsException();
 
-            } else if (objeto instanceof Item) {
+            } else if (object instanceof Item) {
                 throw new ItemAlreadyExistsException();
 
-            } else if (objeto instanceof Category) {
+            } else if (object instanceof Category) {
                 throw new CategoryAlreadyExistsException();
 
             } else {
@@ -50,7 +50,7 @@ public class Validation {
                 .map(Category::getId)
                 .collect(Collectors.toSet());
         if (categoryList.size() != uniqueCategories.size()) {
-            throw new CategoryListDuplicateExeption();
+            throw new CategoryListDuplicateException();
         }
     }
     private static void validateCategory(List<Category> categoryList) {
@@ -66,6 +66,21 @@ public class Validation {
         }
     }
 
+    private static void validateItem(Item item){
+        if(item.getPrice() <= DomConstant.ZERO){
+            throw new PriceException();
+        }
+        if(item.getQuantity() < DomConstant.ZERO){
+            throw new QuantityIsNotEnough(DomConstant.QUANTITY);
+        }
+        if(item.getCategory() == null ||item.getCategory().isEmpty()){
+            throw new CategoryNotFoundException();
+        }
+        if(item.getBrand() == null){
+            throw new BrandNotFoundException();
+        }
+    }
+
     public static void validate(Category creation, Category repository){
         validateName(creation.getName(), DomConstant.NAME);
         validateDescription(creation.getDescription(), DomConstant.DESCRIPTION_1);
@@ -76,12 +91,17 @@ public class Validation {
         validateDescription(creation.getDescription(), DomConstant.DESCRIPTION_2);
         validateCreation(repository);
     }
-    public static void validate(Item creation, Item repository,List<Category> categoryList,Brand brand){
-        validateName(creation.getName(),DomConstant.DEFAULT);
-        validateDescription(creation.getDescription(),DomConstant.DEFAULT);
-        validateCreation(repository);
+    public static void validate(List<Category> categoryList,Brand brand){
         validateCategory(categoryList);
         validateUniqueCategory(categoryList);
         validateBrand(brand);
     }
+
+    public static void validate(Item creation, Item repository){
+        validateName(creation.getName(),DomConstant.DEFAULT);
+        validateDescription(creation.getDescription(),DomConstant.DEFAULT);
+        validateItem(creation);
+        validateCreation(repository);
+    }
+
 }

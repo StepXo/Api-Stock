@@ -20,8 +20,8 @@ public interface ItemRequest {
     ItemAuxDto toItemDto(Item item);
 
 
-    @Mapping(source = AppConstant.CATEGORY_ID,target = AppConstant.CATEGORY,qualifiedByName = AppConstant.MAP_TO_CATEGORIES)
-    @Mapping(source = AppConstant.BRAND_ID,target = AppConstant.BRAND,qualifiedByName = AppConstant.TO_BRAND)
+    @Mapping(source = AppConstant.CATEGORY,target = AppConstant.CATEGORY,qualifiedByName = AppConstant.MAP_TO_CATEGORIES)
+    @Mapping(source = AppConstant.BRAND,target = AppConstant.BRAND,qualifiedByName = AppConstant.TO_BRAND)
     Item toItem(ItemDto itemDto);
     Item toItem(ItemAuxDto item);
 

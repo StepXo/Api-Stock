@@ -7,6 +7,8 @@ public class DomConstant {
     public static final int DESCRIPTION_1 = 90;
     public static final int DESCRIPTION_2 = 120;
     public static final int DEFAULT = 200;
+    public static final String QUANTITY = "Quantity is not enough";
+
 
     public DomConstant() {
         throw new UnsupportedOperationException("This is a constants class and cannot be instantiated.");

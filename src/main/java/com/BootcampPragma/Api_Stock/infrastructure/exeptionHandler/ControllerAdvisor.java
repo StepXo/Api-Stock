@@ -33,15 +33,15 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(InfraConstants.MESSAGE, ExceptionResponse.ITEM_ALREADY_EXIST.getMessage()));
     }
-    @ExceptionHandler(CategoryListDuplicateExeption.class)
+    @ExceptionHandler(CategoryListDuplicateException.class)
     public ResponseEntity<Map<String, String>> categoryListDuplicateExeption(
-            CategoryListDuplicateExeption categoryListDuplicateExeption) {
+            CategoryListDuplicateException categoryListDuplicateException) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(InfraConstants.MESSAGE, ExceptionResponse.CATEGORY_LIST_DUPLICATE.getMessage()));
     }
-    @ExceptionHandler(ActualizationItemExeption.class)
+    @ExceptionHandler(ActualizationItemException.class)
     public ResponseEntity<Map<String, String>> actualizationItemExeption(
-            ActualizationItemExeption actualizationItemExeption) {
+            ActualizationItemException actualizationItemException) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(InfraConstants.MESSAGE, ExceptionResponse.ACTUALIZATION_ITEM.getMessage()));
     }
@@ -109,9 +109,16 @@ public class ControllerAdvisor {
     public ResponseEntity<Map<String, String>> quantityIsNotEnough(
             QuantityIsNotEnough quantityIsNotEnough) {
         String fullMessage = ExceptionResponse.QUANTITY_IS_NOT_ENOUGH.getMessage() + quantityIsNotEnough.getMessage();
-
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(InfraConstants.MESSAGE, fullMessage));
+    }
+
+    @ExceptionHandler(PriceException.class)
+    public ResponseEntity<Map<String, String>> priceException(
+            PriceException priceException) {
+
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(InfraConstants.MESSAGE, ExceptionResponse.PRICE.getMessage()));
     }
 
 }

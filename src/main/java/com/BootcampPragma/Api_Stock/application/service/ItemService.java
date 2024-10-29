@@ -60,7 +60,7 @@ public class ItemService {
     
 
     public void saveItem(ItemDto itemDto) {
-        if (itemDto.getCategoryId() == null || itemDto.getCategoryId().isEmpty() || itemDto.getCategoryId().size() > AppConstant.THREE) {
+        if (itemDto.getCategory() == null || itemDto.getCategory().isEmpty() || itemDto.getCategory().size() > AppConstant.THREE) {
             throw new CategoryListSizeException();
         }
         Item item = itemRequest.toItem(itemDto);

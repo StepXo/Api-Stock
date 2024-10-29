@@ -24,21 +24,23 @@ public class BrandService {
     private final PaginationUtil paginationUtil;
 
     public Page<BrandDto> getBrandsOrderedByName(String order, int page, int size) {
-        List<BrandDto> brandDto = brandServicePort
-                .getAllBrands()
-                .stream()
-                .map(brandRequest::toBrandDto)
-                .toList();
+        List<BrandDto> brandDto = getBrandList();
 
         List<BrandDto> sortedBrandDto = sorterUtil.getSortedBrands(order,brandDto);
         return paginationUtil.getBrandsPagination(order, page, size, sortedBrandDto);
     }
 
-
-
     public void saveBrand(BrandDto brandDto){
         Brand brand = brandRequest.toBrand(brandDto);
         brandServicePort.saveBrand(brand);
+    }
+
+    public List<BrandDto> getBrandList() {
+        return brandServicePort
+                .getAllBrands()
+                .stream()
+                .map(brandRequest::toBrandDto)
+                .toList();
     }
     
 }

@@ -9,14 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(InfraConstants.BRAND)
 @RequiredArgsConstructor
 public class BrandController {
 
     private final BrandService brandService;
-
-
 
     @PostMapping
     @PreAuthorize(InfraConstants.HAS_ROLE_ADMIN)
@@ -30,6 +30,11 @@ public class BrandController {
             @RequestParam(defaultValue = InfraConstants.ZERO) int page,
             @RequestParam(defaultValue = InfraConstants.TEN) int size) {
         return ResponseEntity.ok(brandService.getBrandsOrderedByName(order, page, size));
+    }
+
+    @GetMapping(InfraConstants.LIST)
+    private ResponseEntity<List<BrandDto>> getBrandList(){
+        return ResponseEntity.ok(brandService.getBrandList());
     }
 
 }
