@@ -20,14 +20,14 @@ public class ItemController {
     private final ItemService itemService;
 
 
-    @GetMapping
+    @GetMapping(InfraConstants.LIST)
     private ResponseEntity<List<ItemAuxDto>> getItemList(){
         return ResponseEntity.ok(itemService.getItemList());
     }
 
-    @GetMapping(InfraConstants.ORDER)
+    @GetMapping
     private ResponseEntity<Page<ItemAuxDto>> getAllItems(
-            @PathVariable String order,
+            @RequestParam (defaultValue = InfraConstants.ORDER) String order,
             @RequestParam(defaultValue = InfraConstants.ZERO) int page,
             @RequestParam(defaultValue = InfraConstants.TEN) int size) {
         return ResponseEntity.ok(itemService.getItemsOrdered(order, page, size));

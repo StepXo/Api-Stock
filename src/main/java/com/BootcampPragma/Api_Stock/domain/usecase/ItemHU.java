@@ -3,7 +3,7 @@ package com.BootcampPragma.Api_Stock.domain.usecase;
 import com.BootcampPragma.Api_Stock.domain.Utils.DomConstant;
 import com.BootcampPragma.Api_Stock.domain.Utils.Validation;
 import com.BootcampPragma.Api_Stock.domain.api.ItemServicePort;
-import com.BootcampPragma.Api_Stock.domain.exeption.ActualizationItemExeption;
+import com.BootcampPragma.Api_Stock.domain.exeption.ActualizationItemException;
 import com.BootcampPragma.Api_Stock.domain.exeption.ItemNotFoundException;
 import com.BootcampPragma.Api_Stock.domain.exeption.QuantityIsNotEnough;
 import com.BootcampPragma.Api_Stock.domain.model.Brand;
@@ -35,7 +35,11 @@ public class ItemHU implements ItemServicePort {
     @Override
     public Item saveItem(Item item){
 
+
         Item repository = itemPersistencePort.getItem(item.getName());
+
+        Validation.validate(item,repository);
+
         List<Category> categoryList = new ArrayList<>();
         Brand brand = brandPersistencePort.getBrand(item.getBrand().getId());
 
@@ -43,7 +47,7 @@ public class ItemHU implements ItemServicePort {
             categoryList.add(categoryPersistencePort.getCategory(category.getId()));
         }
 
-        Validation.validate(item,repository,categoryList,brand);
+        Validation.validate(categoryList,brand);
 
         return itemPersistencePort.saveItem(item);
     }
@@ -107,7 +111,7 @@ public class ItemHU implements ItemServicePort {
                 if (i == DomConstant.TWO) break;
             }
         }
-        throw new ActualizationItemExeption();
+        throw new ActualizationItemException();
 
     }
 

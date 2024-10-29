@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping(InfraConstants.CATEGORY)
@@ -23,14 +25,18 @@ public class CategoryController {
         categoryService.saveCategory(category);
     }
 
-    //@GetMapping
-
-    @GetMapping(InfraConstants.ORDER)
+    @GetMapping
     private ResponseEntity<Page<CategoryDto>> getCategories(
-            @PathVariable String order,
             @RequestParam(defaultValue = InfraConstants.ZERO) int page,
-            @RequestParam(defaultValue = InfraConstants.TEN) int size) {
+            @RequestParam(defaultValue = InfraConstants.TEN) int size,
+            @RequestParam (defaultValue = InfraConstants.ORDER) String order
+            ) {
         return ResponseEntity.ok(categoryService.getCategoriesOrderedByName(order, page, size));
+    }
+
+    @GetMapping(InfraConstants.LIST)
+    private ResponseEntity<List<CategoryDto>> getCategoryList(){
+        return ResponseEntity.ok(categoryService.getCategoryList());
     }
 }
 

@@ -1,6 +1,6 @@
 package com.BootcampPragma.Api_Stock.domain.usecase;
 
-import com.BootcampPragma.Api_Stock.domain.exeption.CategoryListDuplicateExeption;
+import com.BootcampPragma.Api_Stock.domain.exeption.CategoryListDuplicateException;
 import com.BootcampPragma.Api_Stock.domain.model.Category;
 import com.BootcampPragma.Api_Stock.domain.model.Item;
 import com.BootcampPragma.Api_Stock.domain.spi.ItemPersistencePort;
@@ -52,7 +52,7 @@ class ItemHUTest {
     void saveItem_DuplicateCategories_ThrowsException() {
         item = new Item(1L, "Item1","desc",0,0, Arrays.asList(cat1, cat1),null);
 
-        assertThrows(CategoryListDuplicateExeption.class, () -> itemHU.saveItem(item));
+        assertThrows(CategoryListDuplicateException.class, () -> itemHU.saveItem(item));
     }
 
     @Test
