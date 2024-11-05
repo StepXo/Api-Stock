@@ -27,18 +27,18 @@ public class ItemController {
 
     @GetMapping
     private ResponseEntity<Page<ItemAuxDto>> getAllItems(
-            @RequestParam (defaultValue = InfraConstants.ORDER) String order,
             @RequestParam(defaultValue = InfraConstants.ZERO) int page,
-            @RequestParam(defaultValue = InfraConstants.TEN) int size) {
+            @RequestParam(defaultValue = InfraConstants.TEN) int size,
+            @RequestParam (defaultValue = InfraConstants.ORDER) String order) {
         return ResponseEntity.ok(itemService.getItemsOrdered(order, page, size));
     }
 
     @GetMapping(InfraConstants.TYPE_ORDER)
     private ResponseEntity<Page<ItemAuxDto>> getAllItems(
-            @PathVariable String order,
             @PathVariable String variable,
             @RequestParam(defaultValue = InfraConstants.ZERO) int page,
-            @RequestParam(defaultValue = InfraConstants.TEN) int size) {
+            @RequestParam(defaultValue = InfraConstants.TEN) int size,
+            @RequestParam (defaultValue = InfraConstants.ORDER) String order) {
         return ResponseEntity.ok(itemService.getItemsOrdered(order,variable, page, size));
     }
 
@@ -70,5 +70,4 @@ public class ItemController {
     public ResponseEntity<List<Integer>> buy(@RequestBody List<ItemAuxDto> list) {
         return ResponseEntity.ok(itemService.buy(list));
     }
-
 }

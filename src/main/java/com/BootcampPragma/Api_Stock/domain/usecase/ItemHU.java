@@ -102,6 +102,8 @@ public class ItemHU implements ItemServicePort {
 
             Item item = itemPersistencePort.getItem(articleId);
 
+            Validation.validate(item);
+
             item.setQuantity(item.getQuantity() + quantity);
 
 

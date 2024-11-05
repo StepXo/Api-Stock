@@ -25,7 +25,7 @@ public class InfraConstants {
     public static final String BRAND = "/brand";
     public static final String CATEGORY = "/category";
     public static final String ITEM = "/item";
-    public static final String TYPE_ORDER = "/{order}/{variable}";
+    public static final String TYPE_ORDER = "/{variable}";
     public static final String SUPPLY = "/increase";
     public static final String CART = "/cart";
     public static final String LIST = "/list";
@@ -35,6 +35,8 @@ public class InfraConstants {
     public static final String HAS_ROLE_ADMIN = "hasRole('ADMIN')";
 
     public static final String ROLE_ADMIN = "ADMIN";
+    public static final String ROLE_USER = "USER";
+
     public static final String ROLE_WAREHOUSE_AUX = "WAREHOUSE_AUX";
     public static final String BUY = "/buy" ;
 

@@ -67,6 +67,10 @@ public class Validation {
     }
 
     private static void validateItem(Item item){
+        if (item == null){
+            throw new ItemNotFoundException();
+        }
+
         if(item.getPrice() <= DomConstant.ZERO){
             throw new PriceException();
         }
@@ -102,6 +106,9 @@ public class Validation {
         validateDescription(creation.getDescription(),DomConstant.DEFAULT);
         validateItem(creation);
         validateCreation(repository);
+    }
+    public static void validate(Item item){
+        validateItem(item);
     }
 
 }
